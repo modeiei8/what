@@ -1,0 +1,12 @@
+[build]
+  command = "echo 'No build needed'"
+  publish = "."
+
+[build.environment]
+  MOD_FILENAME = "mod.json"
+  CATEGORIES_FILENAME = "categories.json"
+  USERS_FILENAME = "users.json"
+  TOPUPS_FILENAME = "topups.json"
+
+[functions]
+  directory = "netlify/functions"

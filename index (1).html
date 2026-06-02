@@ -1,0 +1,5123 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ดาวน์โหลด MOD</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: white;
+            color: #333;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        body.dark-mode {
+            background-color: #121212;
+            color: #e0e0e0;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 5%;
+            background: linear-gradient(135deg, #4a6bff 0%, #6a5acd 100%);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        body.dark-mode header {
+            background-color: #222;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 800;
+            color: white;
+            cursor: pointer;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .search-container {
+            flex-grow: 1;
+            max-width: 600px;
+            margin: 0 20px;
+            position: relative;
+        }
+
+        .search-container input {
+            width: 100%;
+            padding: 12px 20px;
+            border-radius: 30px;
+            border: none;
+            background: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+
+        body.dark-mode .search-container input {
+            background-color: #333;
+            border-color: #444;
+            color: #f0f0f0;
+        }
+
+        .search-container input:focus {
+            background: white;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        .search-container i {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #999;
+            cursor: pointer;
+        }
+
+        .profile-btn {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #4a6bff;
+            cursor: pointer;
+            overflow: hidden;
+            border: 2px solid white;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .profile-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        .profile-btn img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .menu-btn {
+            font-size: 24px;
+            cursor: pointer;
+            margin-right: 15px;
+            color: #333;
+        }
+
+        body.dark-mode .menu-btn {
+            color: #f0f0f0;
+        }
+
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: -300px;
+            width: 280px;
+            height: 100%;
+            background: white;
+            box-shadow: 5px 0 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 1000;
+            padding-top: 80px;
+            overflow-y: auto;
+        }
+
+        body.dark-mode .sidebar {
+            background-color: #1e1e1e;
+        }
+
+        .sidebar.active {
+            left: 0;
+        }
+
+        .sidebar-menu {
+            list-style: none;
+        }
+
+        .sidebar-menu li {
+            padding: 15px 25px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            color: #555;
+            font-weight: 500;
+        }
+
+        body.dark-mode .sidebar-menu li {
+            color: #e0e0e0;
+            border-bottom-color: rgba(255, 255, 255, 0.05);
+        }
+
+        .sidebar-menu li:hover {
+            background: rgba(74, 107, 255, 0.05);
+            color: #4a6bff;
+            padding-left: 30px;
+        }
+
+        body.dark-mode .sidebar-menu li:hover {
+            background-color: #333;
+        }
+
+        .sidebar-menu li i {
+            margin-right: 12px;
+            color: #4a6bff;
+            width: 24px;
+            text-align: center;
+            font-size: 18px;
+        }
+
+        .profile-menu {
+            position: absolute;
+            top: 70px;
+            right: 20px;
+            width: 200px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            display: none;
+            z-index: 1000;
+        }
+
+        body.dark-mode .profile-menu {
+            background-color: #222;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .profile-menu.active {
+            display: block;
+        }
+
+        .profile-menu-item {
+            padding: 12px 20px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            display: flex;
+            align-items: center;
+        }
+
+        .profile-menu-item:hover {
+            background-color: #f5f5f5;
+        }
+
+        body.dark-mode .profile-menu-item:hover {
+            background-color: #333;
+        }
+
+        .profile-menu-item i {
+            margin-right: 10px;
+            color: #4a6bff;
+            width: 20px;
+            text-align: center;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background-color: white;
+            border-radius: 16px;
+            width: 90%;
+            max-width: 500px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+            position: relative;
+            max-height: 90vh;
+            overflow-y: auto;
+            animation:
+                modalFadeIn 0.4s ease-out;
+        }
+
+        @keyframes modalFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        body.dark-mode .modal-content,
+        body.dark-mode .settings-content,
+        body.dark-mode .profile-content {
+            background-color: #1e1e1e;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #999;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+        .close-modal:hover {
+            color: #ff5252;
+            transform: rotate(90deg);
+        }
+
+        .modal-title {
+            font-size: 26px;
+            margin-bottom: 25px;
+            color: #4a6bff;
+            text-align: center;
+            font-weight: 700;
+            background: linear-gradient(to right, #4a6bff, #6a5acd);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .premium-option {
+            border: 1px solid #eee;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+            background: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        body.dark-mode .premium-option {
+            background-color: #252525;
+            border-color: #333;
+        }
+
+        body.dark-mode .premium-title {
+            color: #f5f5f5;
+        }
+
+        body.dark-mode .premium-features li {
+            color: #d0d0d0;
+        }
+
+        .premium-option:hover {
+            border-color: #4a6bff;
+            box-shadow: 0 10px 25px rgba(74, 107, 255, 0.1);
+            transform: translateY(-5px);
+        }
+
+        .premium-title {
+            font-size: 22px;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 700;
+            color: #333;
+        }
+
+        .premium-price {
+            color: #4a6bff;
+            font-weight: 800;
+            font-size: 24px;
+        }
+
+        .premium-features {
+            list-style: none;
+            margin-bottom: 20px;
+        }
+
+
+        .premium-features li {
+            padding: 8px 0;
+            display: flex;
+            align-items: center;
+            color: #555;
+        }
+
+        .premium-features li i {
+            color: #4a6bff;
+            margin-right: 12px;
+            font-size: 18px;
+        }
+
+        .premium-option::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(to bottom, #4a6bff, #6a5acd);
+        }
+
+        .btn {
+            padding: 12px 25px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            font-size: 14px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-primary {
+            background: linear-gradient(to right, #4a6bff, #6a5acd);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(to right, #3a5bef, #5a4acd);
+            box-shadow: 0 5px 15px rgba(74, 107, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .btn-upgrade {
+            background: linear-gradient(to right, #ff9800, #ff6b00);
+            color: white;
+        }
+
+        .btn-upgrade:hover {
+            background: linear-gradient(to right, #e68a00, #e55b00);
+            box-shadow: 0 5px 15px rgba(255, 152, 0, 0.3);
+            transform: translateY(-2px);
+        }
+
+
+        .btn-secondary {
+            background: linear-gradient(to right, #6c757d, #5a6268);
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: linear-gradient(to right, #5a6268, #495057);
+            box-shadow: 0 5px 15px rgba(108, 117, 125, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .settings-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .settings-modal.active {
+            display: flex;
+        }
+
+        .settings-content {
+            background-color: white;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 500px;
+            padding: 25px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+            position: relative;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        body.dark-mode .settings-content {
+            background-color: #222;
+        }
+
+        .settings-title {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #4a6bff;
+            text-align: center;
+        }
+
+        .settings-option {
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        body.dark-mode .settings-option {
+            border-bottom-color: #333;
+        }
+
+        .settings-option:last-child {
+            border-bottom: none;
+        }
+
+        .settings-option-title {
+            font-size: 18px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        .settings-option-title i {
+            margin-right: 10px;
+            color: #4a6bff;
+        }
+
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 30px;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: 0.4s;
+            border-radius: 34px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 22px;
+            width: 22px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: 0.4s;
+            border-radius: 50%;
+        }
+
+        input:checked+.slider {
+            background-color: #4a6bff;
+        }
+
+        input:checked+.slider:before {
+            transform: translateX(30px);
+        }
+
+        .main-content {
+            padding: 20px;
+            margin-top: 20px;
+            display: none;
+        }
+
+        .main-content.active {
+            display: block;
+        }
+
+        .mod-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .mod-card {
+            background-color: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            position: relative;
+        }
+
+        body.dark-mode .mod-card {
+            background-color: #1e1e1e;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        body.dark-mode .mod-title {
+            color: #f5f5f5;
+        }
+
+
+        .mod-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .mod-image {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .mod-card:hover .mod-image {
+            transform: scale(1.05);
+        }
+
+        .mod-info {
+            padding: 20px;
+            position: relative;
+        }
+
+        .mod-title {
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: #333;
+            font-weight: 700;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .mod-author {
+            color: #777;
+            font-size: 14px;
+            margin-bottom: 15px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        body.dark-mode .mod-author {
+            color: #b0b0b0;
+        }
+
+        .mod-download {
+            width: 100%;
+            padding: 12px 0;
+            background: linear-gradient(to right, #4a6bff, #6a5acd);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            letter-spacing: 0.5px;
+        }
+
+        .mod-download:hover {
+            background: linear-gradient(to right, #3a5bef, #5a4acd);
+            box-shadow: 0 4px 12px rgba(74, 107, 255, 0.3);
+        }
+
+        .mod-download.disabled {
+            background: #e0e0e0;
+            cursor: not-allowed;
+        }
+
+        .premium-badge {
+            background-color: #ff9800;
+            color: white;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            margin-left: 5px;
+        }
+
+        .free-badge {
+            background-color: #4caf50;
+            color: white;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            margin-left: 5px;
+        }
+
+        .basic-badge {
+            background-color: #2196f3;
+            color: white;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            margin-left: 5px;
+        }
+
+        .category-badge {
+            display: inline-block;
+            background-color: #4a6bff;
+            color: white;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            margin-right: 5px;
+            margin-bottom: 5px;
+        }
+
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+
+        .overlay.active {
+            display: block;
+        }
+
+        .auth-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .auth-box {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            padding: 30px;
+        }
+
+        body.dark-mode .auth-box {
+            background-color: #222;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .auth-title {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #4a6bff;
+            text-align: center;
+        }
+
+        .auth-form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px 15px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            outline: none;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+
+        body.dark-mode .form-group input {
+            background-color: #333;
+            border-color: #444;
+            color: #f0f0f0;
+        }
+
+        .form-group input:focus {
+            border-color: #4a6bff;
+            box-shadow: 0 0 5px rgba(74, 107, 255, 0.5);
+        }
+
+        .auth-footer {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .auth-footer a {
+            color: #4a6bff;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .auth-footer a:hover {
+            text-decoration: underline;
+        }
+
+        .login-message {
+            text-align: center;
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 5px;
+            background-color: #f8f9fa;
+        }
+
+        body.dark-mode .login-message {
+            background-color: #333;
+        }
+
+        .search-results {
+            margin-top: 20px;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 20px;
+            color: #777;
+        }
+
+        body.dark-mode .no-results {
+            color: #aaa;
+        }
+
+        /* Loading Spinner */
+        .spinner {
+            display: none;
+            width: 50px;
+            height: 50px;
+            border: 5px solid rgba(74, 107, 255, 0.1);
+            border-radius: 50%;
+            border-top: 5px solid #4a6bff;
+            animation: spin 1s linear infinite;
+            margin: 30px auto;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Notification Styles */
+        .notification-popup {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 350px;
+            max-width: 90%;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            display: flex;
+            align-items: flex-start;
+            opacity: 0;
+            transform: translateX(100%);
+            transition: all 0.3s ease;
+            z-index: 10000;
+        }
+
+        .notification-popup.show {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .notification-popup.hide {
+            opacity: 0;
+            transform: translateX(100%);
+        }
+
+        .notification-popup.success {
+            background-color: #4caf50;
+            color: white;
+        }
+
+        .notification-popup.error {
+            background-color: #f44336;
+            color: white;
+        }
+
+        .notification-popup.warning {
+            background-color: #ff9800;
+            color: white;
+        }
+
+        .notification-popup.info {
+            background-color: #2196f3;
+            color: white;
+        }
+
+        .notification-icon {
+            font-size: 1.5rem;
+            margin-right: 12px;
+            flex-shrink: 0;
+        }
+
+        .notification-content {
+            flex: 1;
+        }
+
+        .notification-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+            font-size: 1rem;
+        }
+
+        .notification-message {
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .notification-close {
+            background: none;
+            border: none;
+            color: inherit;
+            font-size: 1rem;
+            margin-left: 10px;
+            cursor: pointer;
+            opacity: 0.8;
+            transition: opacity 0.2s;
+        }
+
+        .notification-close:hover {
+            opacity: 1;
+        }
+
+        /* Profile Info Styles */
+        .profile-info {
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+            text-align: center;
+        }
+
+        body.dark-mode .profile-info {
+            border-bottom-color: #333;
+        }
+
+        .profile-name {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .profile-email {
+            color: #777;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        body.dark-mode .profile-email {
+            color: #aaa;
+        }
+
+        .profile-plan {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+
+        .profile-plan.free {
+            background-color: #6c757d;
+            color: white;
+        }
+
+        .profile-plan.basic {
+            background-color: #2196f3;
+            color: white;
+        }
+
+        .profile-plan.premium {
+            background-color: #ff9800;
+            color: white;
+        }
+
+        .login-btn {
+            background-color: #4a6bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 8px 15px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s;
+            margin-left: 10px;
+        }
+
+        .login-btn:hover {
+            background-color: #3a5bef;
+        }
+
+        /* Profile Modal Styles */
+        .profile-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .profile-modal.active {
+            display: flex;
+        }
+
+        .profile-content {
+            background-color: white;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 600px;
+            padding: 25px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+            position: relative;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        body.dark-mode .profile-content {
+            background-color: #222;
+        }
+
+        .profile-header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .profile-banner {
+            width: 100%;
+            height: 150px;
+            background-color: #4a6bff;
+            border-radius: 8px;
+            margin-bottom: -50px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .profile-banner img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .profile-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 4px solid white;
+            background-color: #ddd;
+            overflow: hidden;
+            z-index: 1;
+            position: relative;
+        }
+
+        body.dark-mode .profile-avatar {
+            border-color: #222;
+        }
+
+        .profile-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .profile-edit-btn {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .profile-edit-btn:hover {
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+
+        .profile-details {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .profile-display-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .profile-username {
+            color: #777;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        body.dark-mode .profile-username {
+            color: #aaa;
+        }
+
+        .profile-bio {
+            margin-bottom: 20px;
+            padding: 10px;
+            background-color: #f5f5f5;
+            border-radius: 8px;
+        }
+
+        body.dark-mode .profile-bio {
+            background-color: #333;
+        }
+
+        .profile-stats {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 20px;
+        }
+
+        .profile-stat {
+            text-align: center;
+        }
+
+        .profile-stat-value {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .profile-stat-label {
+            font-size: 14px;
+            color: #777;
+        }
+
+        body.dark-mode .profile-stat-label {
+            color: #aaa;
+        }
+
+        .profile-tabs {
+            display: flex;
+            border-bottom: 1px solid #ddd;
+            margin-bottom: 20px;
+        }
+
+        body.dark-mode .profile-tabs {
+            border-bottom-color: #333;
+        }
+
+        .profile-tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .profile-tab.active {
+            border-bottom-color: #4a6bff;
+            font-weight: bold;
+        }
+
+        .profile-tab:hover {
+            background-color: #f5f5f5;
+        }
+
+        body.dark-mode .profile-tab:hover {
+            background-color: #333;
+        }
+
+        .profile-section {
+            display: none;
+        }
+
+        .profile-section.active {
+            display: block;
+        }
+
+        .profile-form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .profile-form-group {
+            margin-bottom: 15px;
+        }
+
+        .profile-form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+
+        .profile-form-group input,
+        .profile-form-group textarea {
+            width: 100%;
+            padding: 10px 15px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            outline: none;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+
+        body.dark-mode .profile-form-group input,
+        body.dark-mode .profile-form-group textarea {
+            background-color: #333;
+            border-color: #444;
+            color: #f0f0f0;
+        }
+
+        .profile-form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .profile-form-group input:focus,
+        .profile-form-group textarea:focus {
+            border-color: #4a6bff;
+            box-shadow: 0 0 5px rgba(74, 107, 255, 0.5);
+        }
+
+        .profile-image-upload {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .profile-image-preview {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-bottom: 10px;
+            border: 4px solid #ddd;
+        }
+
+        body.dark-mode .profile-image-preview {
+            border-color: #444;
+        }
+
+        .profile-image-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .profile-banner-preview {
+            width: 100%;
+            height: 150px;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 10px;
+            background-color: #f5f5f5;
+        }
+
+        body.dark-mode .profile-banner-preview {
+            background-color: #333;
+        }
+
+        .profile-banner-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .file-upload-btn {
+            background-color: #4a6bff;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+            transition: background-color 0.3s;
+        }
+
+        .file-upload-btn:hover {
+            background-color: #3a5bef;
+        }
+
+        .feedback-list,
+        .reports-list {
+            max-height: 400px;
+            overflow-y: auto;
+            margin-bottom: 20px;
+        }
+
+        .feedback-item,
+        .report-item {
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            background-color: #f5f5f5;
+        }
+
+        body.dark-mode .feedback-item,
+        body.dark-mode .report-item {
+            background-color: #333;
+        }
+
+        .feedback-header,
+        .report-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .feedback-title,
+        .report-title {
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .feedback-date,
+        .report-date {
+            color: #777;
+            font-size: 14px;
+        }
+
+        body.dark-mode .feedback-date,
+        body.dark-mode .report-date {
+            color: #aaa;
+        }
+
+        .feedback-status,
+        .report-status {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            margin-left: 10px;
+        }
+
+        .feedback-status.pending,
+        .report-status.pending {
+            background-color: #ff9800;
+            color: white;
+        }
+
+        .feedback-status.reviewed,
+        .report-status.reviewed {
+            background-color: #2196f3;
+            color: white;
+        }
+
+        .feedback-status.resolved,
+        .report-status.resolved {
+            background-color: #4caf50;
+            color: white;
+        }
+
+        .feedback-status.rejected,
+        .report-status.rejected {
+            background-color: #f44336;
+            color: white;
+        }
+
+        .feedback-reply,
+        .report-reply {
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #e9f5ff;
+            border-radius: 5px;
+            border-left: 3px solid #4a6bff;
+        }
+
+        body.dark-mode .feedback-reply,
+        body.dark-mode .report-reply {
+            background-color: #2a3a4a;
+        }
+
+        .reply-title {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .reply-date {
+            color: #777;
+            font-size: 12px;
+            margin-bottom: 5px;
+        }
+
+        body.dark-mode .reply-date {
+            color: #aaa;
+        }
+
+        .no-feedback,
+        .no-reports {
+            text-align: center;
+            padding: 20px;
+            color: #777;
+        }
+
+        body.dark-mode .no-feedback,
+        body.dark-mode .no-reports {
+            color: #aaa;
+        }
+
+        .topup-item {
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            background-color: #f5f5f5;
+        }
+
+        body.dark-mode .topup-item {
+            background-color: #333;
+        }
+
+        .topup-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .topup-amount {
+            font-weight: bold;
+            color: #4caf50;
+            font-size: 18px;
+        }
+
+        .topup-date {
+            color: #777;
+            font-size: 14px;
+        }
+
+        body.dark-mode .topup-date {
+            color: #aaa;
+        }
+
+        .topup-status {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+        }
+
+        .topup-status.success {
+            background-color: #4caf50;
+            color: white;
+        }
+
+        .topup-status.pending {
+            background-color: #ff9800;
+            color: white;
+        }
+
+        .topup-status.failed {
+            background-color: #f44336;
+            color: white;
+        }
+
+        .no-topup {
+            text-align: center;
+            padding: 20px;
+            color: #777;
+        }
+
+        body.dark-mode .no-topup {
+            color: #aaa;
+        }
+
+        .payment-method-card {
+            border: 2px solid #4a6bff;
+            border-radius: 10px;
+            padding: 20px;
+            width: 150px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .payment-method-card:hover {
+            background-color: rgba(74, 107, 255, 0.1);
+            transform: translateY(-5px);
+        }
+
+        body.dark-mode .payment-method-card {
+            border-color: #6a5acd;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            header {
+                padding: 10px 15px;
+            }
+
+            .logo {
+                font-size: 20px;
+            }
+
+            .search-container {
+                margin: 0 10px;
+            }
+
+            .search-container input {
+                padding: 8px 12px;
+                font-size: 14px;
+            }
+
+            .menu-btn {
+                font-size: 20px;
+                margin-right: 10px;
+            }
+
+            .profile-btn {
+                width: 35px;
+                height: 35px;
+            }
+
+            .main-content {
+                padding: 15px;
+            }
+
+            .mod-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+                gap: 15px;
+            }
+
+            .modal-content,
+            .settings-content,
+            .profile-content {
+                width: 95%;
+                padding: 20px;
+            }
+
+            .premium-option {
+                padding: 15px;
+            }
+
+            .premium-title {
+                font-size: 18px;
+            }
+
+            .premium-features li {
+                font-size: 14px;
+            }
+
+            .btn {
+                padding: 8px 15px;
+                font-size: 14px;
+            }
+
+            .auth-box {
+                padding: 20px;
+            }
+
+            .auth-title {
+                font-size: 22px;
+            }
+
+            .profile-banner {
+                height: 120px;
+            }
+
+            .profile-avatar {
+                width: 80px;
+                height: 80px;
+            }
+
+            .profile-display-name {
+                font-size: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo {
+                font-size: 18px;
+            }
+
+            .search-container {
+                margin: 0 5px;
+            }
+
+            .search-container input {
+                padding: 6px 10px;
+                font-size: 12px;
+            }
+
+            .menu-btn {
+                font-size: 18px;
+            }
+
+            .mod-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .modal-title,
+            .settings-title {
+                font-size: 20px;
+            }
+
+            .premium-title {
+                font-size: 16px;
+            }
+
+            .premium-features li {
+                font-size: 13px;
+            }
+
+            .btn {
+                padding: 6px 12px;
+                font-size: 13px;
+            }
+
+            .auth-title {
+                font-size: 20px;
+            }
+
+            .form-group input {
+                padding: 8px 12px;
+                font-size: 14px;
+            }
+
+            .profile-banner {
+                height: 100px;
+            }
+
+            .profile-avatar {
+                width: 70px;
+                height: 70px;
+                border-width: 3px;
+            }
+
+            .profile-display-name {
+                font-size: 18px;
+            }
+
+            .profile-tabs {
+                flex-wrap: wrap;
+            }
+
+            .profile-tab {
+                padding: 8px 12px;
+                font-size: 14px;
+            }
+        }
+
+        /* สไตล์สำหรับโมดัลความคิดเห็นและการแจ้งปัญหา */
+        .attachments-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .attachment-item {
+            position: relative;
+            width: 100px;
+            height: 100px;
+            border-radius: 5px;
+            overflow: hidden;
+            border: 1px solid #ddd;
+        }
+
+        body.dark-mode .attachment-item {
+            border-color: #444;
+        }
+
+        .attachment-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .attachment-item video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .attachment-item .remove-attachment {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .file-upload-area {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .file-upload-area input {
+            flex: 1;
+        }
+
+        .text-muted {
+            color: #777;
+            font-size: 12px;
+        }
+
+        body.dark-mode .text-muted {
+            color: #aaa;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 10px 15px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            outline: none;
+            font-size: 16px;
+            transition: all 0.3s;
+            margin-bottom: 15px;
+        }
+
+        body.dark-mode .form-control {
+            background-color: #333;
+            border-color: #444;
+            color: #f0f0f0;
+        }
+
+        .form-control:focus {
+            border-color: #4a6bff;
+            box-shadow: 0 0 5px rgba(74, 107, 255, 0.5);
+        }
+
+        .swal2-container {
+            z-index: 9999 !important;
+        }
+
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .attachment-item {
+                width: 80px;
+                height: 80px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .attachment-item {
+                width: 60px;
+                height: 60px;
+            }
+
+            .file-upload-area {
+                flex-direction: column;
+            }
+
+            .file-upload-area button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="overlay" id="overlay"></div>
+
+    <!-- ส่วนหัวเว็บ -->
+    <header id="mainHeader" style="display: none">
+        <div class="menu-btn" id="menuBtn">
+            <i class="fas fa-bars"></i>
+        </div>
+        <div class="logo" id="homeBtn">MOD HUB</div>
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="ค้นหา MOD..." />
+            <i class="fas fa-search" id="searchBtn"></i>
+        </div>
+        <div id="profileSection">
+            <button class="login-btn" id="headerLoginBtn" style="display: none">
+                เข้าสู่ระบบ
+            </button>
+            <div class="profile-btn" id="profileBtn" style="display: none">
+                <img src="https://via.placeholder.com/40" alt="Profile" id="profileImage" />
+            </div>
+        </div>
+    </header>
+
+    <!-- เมนูด้านข้าง -->
+    <div class="sidebar" id="sidebar">
+        <ul class="sidebar-menu">
+            <li id="sidebarHome"><i class="fas fa-home"></i> Home</li>
+            <li id="sidebarMod"><i class="fas fa-cube"></i> MOD</li>
+            <li id="sidebarSkin"><i class="fas fa-user"></i> Skin</li>
+            <li id="sidebarTexturepack">
+                <i class="fas fa-image"></i> Texture Pack
+            </li>
+            <li id="sidebarMap"><i class="fas fa-map"></i> Map</li>
+        </ul>
+    </div>
+
+    <!-- เมนูโปรไฟล์ -->
+    <div class="profile-menu" id="profileMenu">
+        <div class="profile-info" id="profileInfo" style="display: none">
+            <div class="profile-name" id="profileName"></div>
+            <div class="profile-email" id="profileEmail"></div>
+            <div class="profile-plan" id="profilePlan"></div>
+            <div class="profile-balance" id="profileBalance" style="margin-top: 10px;">
+                <i class="fas fa-wallet"></i> ยอดเงิน: <span id="balanceAmount">0</span> บาท
+            </div>
+        </div>
+        <div class="profile-menu-item" id="viewProfileBtn">
+            <i class="fas fa-user"></i> ดูโปรไฟล์
+        </div>
+        <div class="profile-menu-item" id="settingsBtn">
+            <i class="fas fa-cog"></i> ตั้งค่า
+        </div>
+        <div class="profile-menu-item" id="premiumBtn">
+            <i class="fas fa-crown"></i> Premium
+        </div>
+        <div class="profile-menu-item" id="topupBtn">
+            <i class="fas fa-money-bill-wave"></i> เติมเงิน
+        </div>
+        <div class="profile-menu-item" id="feedbackBtn">
+            <i class="fas fa-comment"></i> ความคิดเห็น
+        </div>
+        <div class="profile-menu-item" id="reportBtn">
+            <i class="fas fa-exclamation-circle"></i> แจ้งปัญหา
+        </div>
+        <div class="profile-menu-item" id="logoutBtn">
+            <i class="fas fa-sign-out-alt"></i> ออกจากระบบ
+        </div>
+    </div>
+
+    <!-- หน้าสมาชิก -->
+    <div class="auth-container" id="authContainer">
+        <div class="auth-box">
+            <div id="loginForm">
+                <h2 class="auth-title">เข้าสู่ระบบ</h2>
+                <form class="auth-form" id="loginFormElement">
+                    <div class="form-group">
+                        <label for="loginEmail">ชื่อผู้ใช้</label>
+                        <input type="text" id="loginEmail" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="loginPassword">รหัสผ่าน</label>
+                        <input type="password" id="loginPassword" required />
+                    </div>
+                    <button type="submit" class="btn btn-primary">เข้าสู่ระบบ</button>
+                </form>
+                <div class="auth-footer">
+                    ยังไม่มีบัญชี? <a href="#" id="showRegister">สมัครสมาชิก</a>
+                </div>
+            </div>
+
+            <div id="registerForm" style="display: none">
+                <h2 class="auth-title">สมัครสมาชิก</h2>
+                <form class="auth-form" id="registerFormElement">
+                    <div class="form-group">
+                        <label for="registerName">ชื่อผู้ใช้</label>
+                        <input type="text" id="registerName" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="registerEmail">อีเมล</label>
+                        <input type="email" id="registerEmail" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="registerPassword">รหัสผ่าน</label>
+                        <input type="password" id="registerPassword" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="registerConfirmPassword">ยืนยันรหัสผ่าน</label>
+                        <input type="password" id="registerConfirmPassword" required />
+                    </div>
+                    <button type="submit" class="btn btn-primary">สมัครสมาชิก</button>
+                </form>
+                <div class="auth-footer">
+                    มีบัญชีอยู่แล้ว? <a href="#" id="showLogin">เข้าสู่ระบบ</a>
+                </div>
+            </div>
+
+            <div class="login-message" id="guestMessage">
+                หรือ <a href="#" id="continueAsGuest">เข้าชมในฐานะผู้เยี่ยมชม</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- หน้าหลัก -->
+    <div class="main-content" id="mainContent">
+        <h2 id="pageTitle">MOD ยอดนิยม</h2>
+        <div class="search-results" id="searchResults" style="display: none"></div>
+        <div class="mod-grid" id="modGrid">
+            <!-- MOD จะถูกเพิ่มโดย JavaScript -->
+        </div>
+        <div id="loading-spinner" class="spinner"></div>
+    </div>
+
+    <!-- โมดัลต่างๆ -->
+    <div class="modal" id="premiumModal">
+        <div class="modal-content">
+            <span class="close-modal" id="closePremiumModal">&times;</span>
+            <h2 class="modal-title">อัปเกรดเป็น Premium</h2>
+
+            <div class="premium-option">
+                <div class="premium-title">
+                    <span>บัญชีฟรี</span>
+                    <span class="premium-price">ฟรี</span>
+                </div>
+                <ul class="premium-features">
+                    <li>
+                        <i class="fas fa-check"></i> ดาวน์โหลด MOD ได้ไม่จำกัด
+                    </li>
+                    <li><i class="fas fa-check"></i> เข้าถึง MOD ฟรีทั้งหมด</li>
+                </ul>
+                <button class="btn btn-secondary" disabled id="freePlanBtn">
+                    บัญชีปัจจุบัน
+                </button>
+            </div>
+
+            <div class="premium-option">
+                <div class="premium-title">
+                    <span>แพ็คเกจพื้นฐาน</span>
+                    <span class="premium-price">50 บาท</span>
+                </div>
+                <ul class="premium-features">
+                    <li><i class="fas fa-check"></i> ดาวน์โหลด MOD ได้ไม่จำกัด</li>
+                    <li>
+                        <i class="fas fa-check"></i> เข้าถึง MOD สำหรับสมาชิกพื้นฐาน
+                    </li>
+                    <li><i class="fas fa-check"></i> สิทธิพิเศษพื้นฐาน</li>
+                </ul>
+                <button class="btn btn-primary" id="basicPlanBtn">ซื้อตอนนี้</button>
+            </div>
+
+            <div class="premium-option">
+                <div class="premium-title">
+                    <span>แพ็คเกจพรีเมียม</span>
+                    <span class="premium-price" id="premiumPrice">100 บาท</span>
+                </div>
+                <ul class="premium-features">
+                    <li><i class="fas fa-check"></i> ดาวน์โหลด MOD ได้ไม่จำกัด</li>
+                    <li><i class="fas fa-check"></i> สิทธิพิเศษทั้งหมด</li>
+                    <li><i class="fas fa-check"></i> เข้าถึง MOD พรีเมียมทั้งหมด</li>
+                    <li><i class="fas fa-check"></i> การสนับสนุนพิเศษ</li>
+                    <li><i class="fas fa-check"></i> ดาวน์โหลดเกม Minecraft ฟรี</li>
+                </ul>
+                <button class="btn btn-primary" id="premiumPlanBtn">
+                    ซื้อตอนนี้
+                </button>
+                <button class="btn btn-upgrade" style="margin-top: 10px; display: none" id="upgradePlanBtn">
+                    อัปเกรดจาก 50 บาท
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="settings-modal" id="settingsModal">
+        <div class="settings-content">
+            <span class="close-modal" id="closeSettingsModal">&times;</span>
+            <h2 class="settings-title">ตั้งค่า</h2>
+
+            <div class="settings-option">
+                <div class="settings-option-title">
+                    <i class="fas fa-user"></i> โปรไฟล์
+                </div>
+                <p>จัดการข้อมูลโปรไฟล์และบัญชีของคุณ</p>
+                <button class="btn btn-primary" style="padding: 5px 10px; font-size: 14px" id="editProfileBtn">
+                    แก้ไขโปรไฟล์
+                </button>
+            </div>
+
+            <div class="settings-option">
+                <div class="settings-option-title">
+                    <i class="fas fa-bell"></i> การแจ้งเตือน
+                </div>
+                <p>ตั้งค่าการแจ้งเตือนต่างๆ</p>
+            </div>
+
+            <div class="settings-option">
+                <div class="settings-option-title">
+                    <i class="fas fa-moon"></i> โหมดกลางคืน
+                </div>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="darkModeToggle" />
+                    <span class="slider"></span>
+                </label>
+            </div>
+
+            <div class="settings-option">
+                <div class="settings-option-title">
+                    <i class="fas fa-crown"></i> สถานะ Premium
+                </div>
+                <p id="premiumStatus">
+                    บัญชีฟรี
+                    <button class="btn btn-primary" style="padding: 5px 10px; font-size: 12px"
+                        onclick="openPremiumModal()">
+                        อัปเกรด
+                    </button>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="loginRequiredModal">
+        <div class="modal-content">
+            <span class="close-modal" id="closeLoginRequiredModal">&times;</span>
+            <h2 class="modal-title">ต้องการเข้าสู่ระบบ</h2>
+            <p style="text-align: center; margin-bottom: 20px">
+                คุณต้องเข้าสู่ระบบหรือสมัครสมาชิกก่อนจึงจะสามารถดาวน์โหลด MOD ได้
+            </p>
+            <div style="display: flex; justify-content: center; gap: 10px">
+                <button class="btn btn-primary" id="goToLoginBtn">เข้าสู่ระบบ</button>
+                <button class="btn btn-secondary" id="goToRegisterBtn">
+                    สมัครสมาชิก
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="topupModal">
+        <div class="modal-content" style="max-width: 500px;">
+            <span class="close-modal" id="closeTopupModal">&times;</span>
+            <h2 class="modal-title">เติมเงินด้วยสลิปโอนเงิน</h2>
+
+            <div class="bank-box"
+                style="background: #ecfdf3; border-radius: 12px; padding: 15px; display: flex; align-items: center; gap: 15px; margin-bottom: 20px; border: 1px solid #bbf7d0;">
+                <div
+                    style="width: 50px; height: 50px; border-radius: 12px; background: linear-gradient(135deg, #16a34a, #22c55e); display: flex; align-items: center; justify-content: center; color: white; font-size: 24px; flex-shrink: 0;">
+                    <i class="bx bxs-bank"></i>
+                </div>
+                <div style="flex: 1; color: #333;">
+                    <div style="font-weight: bold; color: #166534; font-size: 16px;">กรุงไทย(พร้อมเพย์)</div>
+                    <div style="font-size: 14px; margin-top: 2px;">ชื่อบัญชี: <strong>นาย พิพัฒน์ กุลเเดง</strong></div>
+                    <div style="font-size: 14px;">เลขบัญชี: <strong>0889209088</strong></div>
+                </div>
+                <button class="btn btn-primary" id="copyBankIdBtn"
+                    style="padding: 8px 12px; font-size: 12px; background: #16a34a;">
+                    <i class="bx bx-copy"></i> คัดลอก
+                </button>
+            </div>
+
+            <div class="upload-section" style="text-align: center;">
+                <input type="file" id="slipInput" accept="image/*" style="display: none;" />
+                <label for="slipInput"
+                    style="border: 2px dashed #4a6bff; border-radius: 12px; padding: 20px; display: block; cursor: pointer; transition: all 0.3s; background: rgba(74, 107, 255, 0.05);">
+                    <i class="bx bx-cloud-upload" style="font-size: 40px; color: #4a6bff;"></i>
+                    <div style="font-weight: bold; margin-top: 10px; color: #333;" class="upload-text-color">
+                        คลิกเพื่ออัปโหลดสลิปโอนเงิน</div>
+                    <div style="font-size: 12px; color: #777; margin-top: 5px;">รองรับไฟล์ JPG, PNG</div>
+                </label>
+
+                <div id="previewBox"
+                    style="display: none; margin-top: 15px; padding: 10px; border: 1px solid #ddd; border-radius: 12px;">
+                    <img id="previewImage" style="max-width: 100%; max-height: 200px; border-radius: 8px;"
+                        alt="Slip preview">
+                </div>
+
+                <button id="checkSlipBtn" class="btn btn-primary"
+                    style="width: 100%; margin-top: 15px; font-size: 16px; padding: 12px; background: linear-gradient(135deg, #16a34a, #22c55e);">
+                    ตรวจสอบสลิป
+                </button>
+            </div>
+
+            <div id="topupHistory" style="margin-top: 30px;">
+                <h3 style="text-align: center; margin-bottom: 15px; font-size: 18px;">ประวัติการเติมเงิน</h3>
+                <div id="topupHistoryList" class="feedback-list">
+                    <div class="spinner" id="topupHistorySpinner"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- โมดัลโปรไฟล์ -->
+    <div class="profile-modal" id="profileModal">
+        <div class="profile-content">
+            <span class="close-modal" id="closeProfileModal">&times;</span>
+
+            <div class="profile-header">
+                <div class="profile-banner" id="profileBanner">
+                    <img src="https://via.placeholder.com/600x200?text=Banner" id="bannerImage" alt="Profile Banner" />
+                    <button class="profile-edit-btn" id="editBannerBtn">
+                        <i class="fas fa-camera"></i>
+                    </button>
+                </div>
+                <div class="profile-avatar" id="profileAvatar">
+                    <img src="https://via.placeholder.com/100?text=Avatar" id="avatarImage" alt="Profile Avatar" />
+                    <button class="profile-edit-btn" id="editAvatarBtn">
+                        <i class="fas fa-camera"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="profile-details">
+                <div class="profile-display-name" id="profileDisplayName"></div>
+                <div class="profile-username" id="profileUsername"></div>
+                <div class="profile-bio" id="profileBio">ยังไม่มีคำอธิบายโปรไฟล์</div>
+
+                <div class="profile-stats">
+                    <div class="profile-stat">
+                        <div class="profile-stat-value" id="downloadCount">0</div>
+                        <div class="profile-stat-label">ดาวน์โหลด</div>
+                    </div>
+                    <div class="profile-stat">
+                        <div class="profile-stat-value" id="joinDate">-</div>
+                        <div class="profile-stat-label">วันที่เข้าร่วม</div>
+                    </div>
+                    <div class="profile-stat">
+                        <div class="profile-stat-value" id="userPlan">ฟรี</div>
+                        <div class="profile-stat-label">สถานะสมาชิก</div>
+                        <div class="profile-stat">
+                            <div class="profile-stat-value" id="profileBalanceValue">0</div>
+                            <div class="profile-stat-label">ยอดเงิน (บาท)</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="profile-tabs">
+                <div class="profile-tab active" data-tab="view">ดูโปรไฟล์</div>
+                <div class="profile-tab" data-tab="edit">แก้ไขโปรไฟล์</div>
+                <div class="profile-tab" data-tab="feedback">ความคิดเห็นของคุณ</div>
+                <div class="profile-tab" data-tab="reports">รายงานปัญหาของคุณ</div>
+            </div>
+
+            <div class="profile-section active" id="viewProfileSection">
+                <h3 style="text-align: center; margin-bottom: 15px">ข้อมูลโปรไฟล์</h3>
+                <div style="margin-bottom: 15px">
+                    <strong>อีเมล:</strong> <span id="profileViewEmail"></span>
+                </div>
+                <div style="margin-bottom: 15px">
+                    <strong>คำอธิบาย:</strong> <span id="profileViewBio"></span>
+                </div>
+            </div>
+
+            <div class="profile-section" id="feedbackProfileSection">
+                <h3 style="text-align: center; margin-bottom: 15px">ความคิดเห็นของคุณ</h3>
+                <div id="userFeedbackList" class="feedback-list">
+                    <!-- ข้อมูลความคิดเห็นจะถูกโหลดโดย JavaScript -->
+                    <div class="spinner" id="feedbackSpinner"></div>
+                </div>
+            </div>
+
+            <div class="profile-section" id="reportsProfileSection">
+                <h3 style="text-align: center; margin-bottom: 15px">รายงานปัญหาของคุณ</h3>
+                <div id="userReportsList" class="reports-list">
+                    <!-- ข้อมูลรายงานจะถูกโหลดโดย JavaScript -->
+                    <div class="spinner" id="reportsSpinner"></div>
+                </div>
+            </div>
+
+            <div class="profile-section" id="editProfileSection">
+                <h3 style="text-align: center; margin-bottom: 15px">แก้ไขโปรไฟล์</h3>
+                <form class="profile-form" id="profileForm">
+                    <div class="profile-form-group">
+                        <label for="editDisplayName">ชื่อที่แสดง</label>
+                        <input type="text" id="editDisplayName" placeholder="ชื่อที่แสดง" />
+                    </div>
+
+                    <div class="profile-form-group">
+                        <label for="editBio">คำอธิบายโปรไฟล์</label>
+                        <textarea id="editBio" placeholder="บอกเกี่ยวกับตัวคุณ..."></textarea>
+                    </div>
+
+                    <div class="profile-image-upload">
+                        <label>รูปโปรไฟล์</label>
+                        <div class="profile-image-preview" id="avatarPreview">
+                            <img src="https://via.placeholder.com/150?text=Avatar" id="avatarPreviewImage"
+                                alt="Avatar Preview" />
+                        </div>
+                        <div class="profile-form-group">
+                            <label for="avatarUrlInput">URL รูปโปรไฟล์</label>
+                            <input type="text" id="avatarUrlInput" placeholder="https://example.com/avatar.jpg" />
+                            <div style="display: flex; gap: 10px; margin-top: 10px">
+                                <button type="button" class="btn btn-primary" id="applyAvatarUrlBtn">
+                                    ใช้ลิงค์นี้
+                                </button>
+                                <button type="button" class="btn btn-secondary" id="resetAvatarBtn">
+                                    รีเซ็ตเป็นค่าเริ่มต้น
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="profile-image-upload">
+                        <label>รูปพื้นหลัง</label>
+                        <div class="profile-banner-preview" id="bannerPreview">
+                            <img src="https://via.placeholder.com/600x200?text=Banner" id="bannerPreviewImage"
+                                alt="Banner Preview" />
+                        </div>
+                        <div class="profile-form-group">
+                            <label for="bannerUrlInput">URL รูปพื้นหลัง</label>
+                            <input type="text" id="bannerUrlInput" placeholder="https://example.com/banner.jpg" />
+                            <div style="display: flex; gap: 10px; margin-top: 10px">
+                                <button type="button" class="btn btn-primary" id="applyBannerUrlBtn">
+                                    ใช้ลิงค์นี้
+                                </button>
+                                <button type="button" class="btn btn-secondary" id="resetBannerBtn">
+                                    รีเซ็ตเป็นค่าเริ่มต้น
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">
+                        บันทึกการเปลี่ยนแปลง
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- โมดัลความคิดเห็น -->
+    <div class="modal" id="feedbackModal">
+        <div class="modal-content">
+            <span class="close-modal" id="closeFeedbackModal">&times;</span>
+            <h2 class="modal-title">ส่งความคิดเห็น</h2>
+            <form id="feedbackForm">
+                <div class="form-group">
+                    <label for="feedbackType">ประเภทความคิดเห็น</label>
+                    <select id="feedbackType" class="form-control">
+                        <option value="suggestion">ข้อเสนอแนะ</option>
+                        <option value="bug">รายงานข้อผิดพลาด</option>
+                        <option value="complaint">ข้อร้องเรียน</option>
+                        <option value="other">อื่นๆ</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="feedbackTitle">หัวข้อ</label>
+                    <input type="text" id="feedbackTitle" placeholder="หัวข้อความคิดเห็น" required />
+                </div>
+                <div class="form-group">
+                    <label for="feedbackContent">รายละเอียด</label>
+                    <textarea id="feedbackContent" rows="5" placeholder="กรุณากรอกรายละเอียดความคิดเห็นของคุณ..."
+                        required></textarea>
+                </div>
+                <div class="form-group">
+                    <label>แนบไฟล์ (รูปภาพหรือวิดีโอ)</label>
+                    <div id="feedbackAttachments" class="attachments-container"></div>
+                    <div class="file-upload-area">
+                        <input type="text" id="feedbackFileUrl" placeholder="วางลิงค์ไฟล์ที่นี่ (รูปภาพหรือวิดีโอ)" />
+                        <button type="button" class="btn btn-secondary" id="addFeedbackAttachment">
+                            เพิ่มไฟล์
+                        </button>
+                    </div>
+                    <small class="text-muted">สามารถแนบลิงค์รูปภาพ (JPG, PNG) หรือวิดีโอ (YouTube,
+                        Vimeo)</small>
+                </div>
+                <button type="submit" class="btn btn-primary">ส่งความคิดเห็น</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- โมดัลแจ้งปัญหา -->
+    <div class="modal" id="reportModal">
+        <div class="modal-content">
+            <span class="close-modal" id="closeReportModal">&times;</span>
+            <h2 class="modal-title">แจ้งปัญหา</h2>
+            <form id="reportForm">
+                <div class="form-group">
+                    <label for="reportType">ประเภทปัญหา</label>
+                    <select id="reportType" class="form-control">
+                        <option value="mod_issue">ปัญหาเกี่ยวกับ MOD</option>
+                        <option value="content_issue">ปัญหาเกี่ยวกับเนื้อหา</option>
+                        <option value="user_issue">ปัญหาเกี่ยวกับผู้ใช้</option>
+                        <option value="technical_issue">ปัญหาเทคนิค</option>
+                        <option value="other">อื่นๆ</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="reportTitle">หัวข้อปัญหา</label>
+                    <input type="text" id="reportTitle" placeholder="หัวข้อปัญหา" required />
+                </div>
+                <div class="form-group">
+                    <label for="reportContent">รายละเอียดปัญหา</label>
+                    <textarea id="reportContent" rows="5" placeholder="กรุณาอธิบายปัญหาที่พบ..." required></textarea>
+                </div>
+                <div class="form-group">
+                    <label>แนบหลักฐาน (รูปภาพหรือวิดีโอ)</label>
+                    <div id="reportAttachments" class="attachments-container"></div>
+                    <div class="file-upload-area">
+                        <input type="text" id="reportFileUrl" placeholder="วางลิงค์ไฟล์ที่นี่ (รูปภาพหรือวิดีโอ)" />
+                        <button type="button" class="btn btn-secondary" id="addReportAttachment">
+                            เพิ่มไฟล์
+                        </button>
+                    </div>
+                    <small class="text-muted">สามารถแนบลิงค์รูปภาพ (JPG, PNG) หรือวิดีโอ (YouTube,
+                        Vimeo)</small>
+                </div>
+                <button type="submit" class="btn btn-primary">ส่งรายงานปัญหา</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Notification Container -->
+    <div id="notification-container"></div>
+
+    <script>
+        // ค่าเริ่มต้นสำหรับรูปโปรไฟล์และพื้นหลัง
+        const DEFAULT_AVATAR_URL =
+            "https://img5.pic.in.th/file/secure-sv1/9385289.png";
+        const DEFAULT_BANNER_URL =
+            "https://img2.pic.in.th/pic/360_F_355607062_zYMS8jaz4SfoykpWz5oViRVKL32IabTP.jpg";
+
+        // ข้อมูล GitHub จะถูกโหลดผ่าน Netlify Function
+        let githubConfig = {
+            filename: "mod.json",
+            categoriesFilename: "categories.json",
+            usersFilename: "users.json",
+        };
+
+        // ข้อมูลหมวดหมู่
+        let categories = [];
+
+        let feedbackAttachments = [];
+        let reportAttachments = [];
+
+        // สถานะผู้ใช้
+        let currentUser = null;
+        let isLoggedIn = false;
+        let isPremium = false;
+        let currentCategory = "all";
+        let darkMode = false;
+        let loadedModIds = new Set();
+
+        // DOM Elements
+        const authContainer = document.getElementById("authContainer");
+        const mainHeader = document.getElementById("mainHeader");
+        const mainContent = document.getElementById("mainContent");
+        const loginForm = document.getElementById("loginForm");
+        const registerForm = document.getElementById("registerForm");
+        const loginFormElement = document.getElementById("loginFormElement");
+        const registerFormElement = document.getElementById(
+            "registerFormElement"
+        );
+        const showRegister = document.getElementById("showRegister");
+        const showLogin = document.getElementById("showLogin");
+        const continueAsGuest = document.getElementById("continueAsGuest");
+        const guestMessage = document.getElementById("guestMessage");
+        const modGrid = document.getElementById("modGrid");
+        const searchInput = document.getElementById("searchInput");
+        const searchBtn = document.getElementById("searchBtn");
+        const searchResults = document.getElementById("searchResults");
+        const pageTitle = document.getElementById("pageTitle");
+        const homeBtn = document.getElementById("homeBtn");
+        const profileBtn = document.getElementById("profileBtn");
+        const profileMenu = document.getElementById("profileMenu");
+        const logoutBtn = document.getElementById("logoutBtn");
+        const menuBtn = document.getElementById("menuBtn");
+        const sidebar = document.getElementById("sidebar");
+        const overlay = document.getElementById("overlay");
+        const premiumModal = document.getElementById("premiumModal");
+        const closePremiumModal = document.getElementById("closePremiumModal");
+        const premiumBtn = document.getElementById("premiumBtn");
+        const settingsModal = document.getElementById("settingsModal");
+        const closeSettingsModal = document.getElementById("closeSettingsModal");
+        const settingsBtn = document.getElementById("settingsBtn");
+        const darkModeToggle = document.getElementById("darkModeToggle");
+        const loginRequiredModal = document.getElementById("loginRequiredModal");
+        const closeLoginRequiredModal = document.getElementById(
+            "closeLoginRequiredModal"
+        );
+        const goToLoginBtn = document.getElementById("goToLoginBtn");
+        const goToRegisterBtn = document.getElementById("goToRegisterBtn");
+        const sidebarHome = document.getElementById("sidebarHome");
+        const sidebarMod = document.getElementById("sidebarMod");
+        const sidebarSkin = document.getElementById("sidebarSkin");
+        const sidebarTexturepack = document.getElementById("sidebarTexturepack");
+        const sidebarMap = document.getElementById("sidebarMap");
+        const premiumStatus = document.getElementById("premiumStatus");
+        const loadingSpinner = document.getElementById("loading-spinner");
+        const headerLoginBtn = document.getElementById("headerLoginBtn");
+        const profileInfo = document.getElementById("profileInfo");
+        const profileName = document.getElementById("profileName");
+        const profileEmail = document.getElementById("profileEmail");
+        const profilePlan = document.getElementById("profilePlan");
+        const freePlanBtn = document.getElementById("freePlanBtn");
+        const basicPlanBtn = document.getElementById("basicPlanBtn");
+        const premiumPlanBtn = document.getElementById("premiumPlanBtn");
+        const upgradePlanBtn = document.getElementById("upgradePlanBtn");
+        const premiumPrice = document.getElementById("premiumPrice");
+        const viewProfileBtn = document.getElementById("viewProfileBtn");
+        const editProfileBtn = document.getElementById("editProfileBtn");
+        const profileModal = document.getElementById("profileModal");
+        const closeProfileModal = document.getElementById("closeProfileModal");
+        const profileDisplayName = document.getElementById("profileDisplayName");
+        const profileUsername = document.getElementById("profileUsername");
+        const profileBio = document.getElementById("profileBio");
+        const profileViewEmail = document.getElementById("profileViewEmail");
+        const profileViewBio = document.getElementById("profileViewBio");
+        const downloadCount = document.getElementById("downloadCount");
+        const joinDate = document.getElementById("joinDate");
+        const userPlan = document.getElementById("userPlan");
+        const profileForm = document.getElementById("profileForm");
+        const editDisplayName = document.getElementById("editDisplayName");
+        const editBio = document.getElementById("editBio");
+        const avatarImage = document.getElementById("avatarImage");
+        const bannerImage = document.getElementById("bannerImage");
+        const editAvatarBtn = document.getElementById("editAvatarBtn");
+        const editBannerBtn = document.getElementById("editBannerBtn");
+        const profileTabs = document.querySelectorAll(".profile-tab");
+        const profileSections = document.querySelectorAll(".profile-section");
+        const avatarPreviewImage = document.getElementById("avatarPreviewImage");
+        const bannerPreviewImage = document.getElementById("bannerPreviewImage");
+        const resetAvatarBtn = document.getElementById("resetAvatarBtn");
+        const resetBannerBtn = document.getElementById("resetBannerBtn");
+        const avatarUrlInput = document.getElementById("avatarUrlInput");
+        const bannerUrlInput = document.getElementById("bannerUrlInput");
+        const applyAvatarUrlBtn = document.getElementById("applyAvatarUrlBtn");
+        const applyBannerUrlBtn = document.getElementById("applyBannerUrlBtn");
+
+        // Event Listener สำหรับปุ่มเติมเงิน
+        document.getElementById("topupBtn").addEventListener("click", function () {
+            openTopupModal();
+        });
+
+        // Event Listener สำหรับปุ่มปิดโมดัลเติมเงิน
+        document.getElementById("closeTopupModal").addEventListener("click", function () {
+            closeTopupModal();
+        });
+
+        // ฟังก์ชันปิดโมดัลเติมเงิน
+        function closeTopupModal() {
+            const topupModal = document.getElementById("topupModal");
+            topupModal.classList.remove("active");
+            overlay.classList.remove("active");
+        }
+
+        // --- ระบบเติมเงินด้วยสลิป (SlipOK) ---
+
+        // ฟังก์ชันคัดลอกเลขบัญชี
+        document.getElementById("copyBankIdBtn").addEventListener("click", function () {
+            navigator.clipboard.writeText("0889209088").then(() => {
+                Swal.fire({
+                    icon: "success",
+                    title: "คัดลอกสำเร็จ",
+                    text: "คัดลอกเลขบัญชีไปยังคลิปบอร์ดแล้ว",
+                    confirmButtonText: "ปิด",
+                    timer: 1500
+                });
+            });
+        });
+
+        // แสดงตัวอย่างสลิปที่เลือก
+        const slipInput = document.getElementById("slipInput");
+        const previewBox = document.getElementById("previewBox");
+        const previewImage = document.getElementById("previewImage");
+
+        slipInput.addEventListener("change", () => {
+            const file = slipInput.files[0];
+            if (!file) {
+                previewBox.style.display = "none";
+                return;
+            }
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                previewImage.src = e.target.result;
+                previewBox.style.display = "block";
+            };
+            reader.readAsDataURL(file);
+        });
+
+        // อ่านไฟล์เป็น Base64
+        function fileToBase64(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const dataUrl = e.target.result || "";
+                    const parts = dataUrl.split(",");
+                    if (parts.length < 2) return reject(new Error("ไม่สามารถอ่านไฟล์ได้"));
+                    resolve(parts[1]);
+                };
+                reader.onerror = () => reject(new Error("อ่านไฟล์ไม่สำเร็จ"));
+                reader.readAsDataURL(file);
+            });
+        }
+
+        // คลิกตรวจสอบสลิป
+        document.getElementById("checkSlipBtn").addEventListener("click", async () => {
+            if (!isLoggedIn || !currentUser) {
+                showNotification("error", "กรุณาเข้าสู่ระบบก่อนเติมเงิน");
+                return;
+            }
+
+            const file = slipInput.files[0];
+            if (!file) {
+                Swal.fire({ icon: "warning", title: "แจ้งเตือน", text: "กรุณาอัปโหลดสลิปก่อนตรวจสอบ" });
+                return;
+            }
+
+            Swal.fire({
+                title: "กำลังตรวจสอบสลิป...",
+                html: "รอสักครู่ ระบบกำลังสื่อสารกับธนาคาร",
+                allowOutsideClick: false,
+                didOpen: () => { Swal.showLoading(); }
+            });
+
+            try {
+                const base64 = await fileToBase64(file);
+                const payload = {
+                    imageBase64: base64,
+                    username: currentUser.name
+                };
+
+                // เรียกใช้งาน Netlify Function ของคุณ
+                const res = await fetch("/.netlify/functions/check-slip", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(payload),
+                });
+
+                const data = await res.json();
+
+                if (res.ok && data.success) {
+                    const amount = data.data.amount || 0;
+
+                    // อัปเดตเงินในระบบ GitHub Database (users.json)
+                    const users = await loadUsers();
+                    const userIndex = users.findIndex(u => u.id === currentUser.id);
+
+                    if (userIndex !== -1) {
+                        users[userIndex].balance = (users[userIndex].balance || 0) + amount;
+                        await saveUsers(users);
+
+                        // อัปเดต State ปัจจุบัน
+                        currentUser.balance = users[userIndex].balance;
+                        saveAppState();
+                        updateProfileInfo();
+
+                        // บันทึกประวัติลง topups.json
+                        let topups = await loadJsonFile("topups.json") || [];
+                        topups.push({
+                            id: Date.now().toString(),
+                            userId: currentUser.id,
+                            amount: amount,
+                            net_amount: amount,
+                            method: "bank_transfer",
+                            date: new Date().toISOString(),
+                            status: "completed",
+                            transactionId: data.data.transRef || data.data.reference || "-",
+                            bank: data.data.sendingBank || "ไม่ระบุ"
+                        });
+                        await saveJsonFile("topups.json", topups);
+
+                        // โหลดประวัติใหม่
+                        loadTopupHistory();
+
+                        Swal.fire({
+                            icon: "success",
+                            title: "เติมเงินสำเร็จ!",
+                            html: `คุณได้รับเงิน <b>${amount}</b> บาท<br>ยอดเงินคงเหลือ: <b>${currentUser.balance}</b> บาท`,
+                            confirmButtonText: "ยอดเยี่ยม"
+                        });
+
+                        // ล้างฟอร์ม
+                        slipInput.value = "";
+                        previewBox.style.display = "none";
+                    }
+                } else {
+                    Swal.fire({
+                        icon: "error",
+                        title: "สลิปไม่ผ่าน",
+                        text: data.message || "ไม่สามารถตรวจสอบสลิปได้",
+                    });
+                }
+            } catch (err) {
+                console.error(err);
+                Swal.fire({ icon: "error", title: "ข้อผิดพลาดระบบ", text: "ไม่สามารถเชื่อมต่อเซิร์ฟเวอร์ได้" });
+            }
+        });
+
+        // ฟังก์ชันเปิด Modal (ปรับปรุงให้ล้างค่าสลิปเก่า)
+        function openTopupModal() {
+            if (!isLoggedIn) {
+                showNotification("error", "กรุณาเข้าสู่ระบบก่อนใช้งานระบบเติมเงิน");
+                return;
+            }
+            const topupModal = document.getElementById("topupModal");
+            topupModal.classList.add("active");
+            overlay.classList.add("active");
+            profileMenu.classList.remove("active");
+
+            // รีเซ็ตสลิป
+            slipInput.value = "";
+            previewBox.style.display = "none";
+
+            loadTopupHistory();
+        }
+
+        // ฟังก์ชันโหลดประวัติการเติมเงิน
+        async function loadTopupHistory() {
+            if (!isLoggedIn || !currentUser) return;
+
+            const topupHistorySpinner = document.getElementById("topupHistorySpinner");
+            const topupHistoryList = document.getElementById("topupHistoryList");
+
+            topupHistorySpinner.style.display = "block";
+            topupHistoryList.innerHTML = '<div class="spinner" id="topupHistorySpinner"></div>';
+
+            try {
+                // โหลดข้อมูลจาก GitHub
+                const topups = await loadJsonFile("topups.json");
+                const userTopups = topups
+                    ? topups.filter(t => t.userId === currentUser.id)
+                    : [];
+
+                if (userTopups.length === 0) {
+                    topupHistoryList.innerHTML =
+                        '<p class="no-topup">ไม่พบประวัติการเติมเงิน</p>';
+                    return;
+                }
+
+                // เรียงลำดับจากใหม่ไปเก่า
+                userTopups.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+                topupHistoryList.innerHTML = userTopups
+                    .map(topup => {
+                        const date = new Date(topup.date).toLocaleDateString("th-TH");
+                        let statusClass = topup.status || "pending";
+                        let statusText = "";
+                        let methodText = topup.method === "truemoney" ? "ทรูมันนี่" : "พร้อมเพย์";
+                        let amountText = topup.net_amount ?
+                            `${topup.amount} บาท (ได้รับ ${topup.net_amount} บาท)` :
+                            `${topup.amount} บาท`;
+
+                        switch (topup.status) {
+                            case "completed":
+                                statusText = "สำเร็จ";
+                                statusClass = "success";
+                                break;
+                            case "pending":
+                                statusText = "รอดำเนินการ";
+                                statusClass = "pending";
+                                break;
+                            case "failed":
+                                statusText = "ล้มเหลว";
+                                statusClass = "failed";
+                                break;
+                            default:
+                                statusText = "รอดำเนินการ";
+                                statusClass = "pending";
+                        }
+
+                        return `
+                    <div class="topup-item">
+                        <div class="topup-header">
+                            <div class="topup-amount">${amountText}</div>
+                            <div>
+                                <span class="topup-date">${date}</span>
+                                <span class="topup-status ${statusClass}">${statusText}</span>
+                            </div>
+                        </div>
+                        <div>ช่องทาง: ${methodText}</div>
+                        ${topup.fee ? `<div>ค่าธรรมเนียม: ${topup.fee} บาท (${topup.fee_percentage})</div>` : ''}
+                        <div>เลขที่อ้างอิง: ${topup.transactionId || "-"}</div>
+                        ${topup.note ? `<div>หมายเหตุ: ${topup.note}</div>` : ""}
+                    </div>
+                `;
+                    })
+                    .join("");
+            } catch (error) {
+                console.error("Load topup history error:", error);
+                topupHistoryList.innerHTML =
+                    '<p class="no-topup">เกิดข้อผิดพลาดในการโหลดประวัติการเติมเงิน</p>';
+            } finally {
+                topupHistorySpinner.style.display = "none";
+            }
+        }
+
+        // ฟังก์ชันแสดง Popup แจ้งเตือน
+        function showNotification(type, message, title = "", duration = 3000) {
+            const container = document.getElementById("notification-container");
+            const notification = document.createElement("div");
+
+            let iconClass = "fa-info-circle";
+            if (type === "success") iconClass = "fa-check-circle";
+            else if (type === "error") iconClass = "fa-exclamation-circle";
+            else if (type === "warning") iconClass = "fa-exclamation-triangle";
+
+            notification.className = `notification-popup ${type}`;
+            notification.innerHTML = `
+                <i class="fas ${iconClass} notification-icon"></i>
+                <div class="notification-content">
+                    ${title
+                    ? `<div class="notification-title">${title}</div>`
+                    : ""
+                }
+                    <div class="notification-message">${message}</div>
+                </div>
+                <button class="notification-close" onclick="this.parentElement.remove()">
+                    <i class="fas fa-times"></i>
+                </button>
+            `;
+
+            container.appendChild(notification);
+
+            setTimeout(() => {
+                notification.classList.add("show");
+            }, 10);
+
+            if (duration > 0) {
+                setTimeout(() => {
+                    notification.classList.remove("show");
+                    notification.classList.add("hide");
+
+                    setTimeout(() => {
+                        notification.remove();
+                    }, 300);
+                }, duration);
+            }
+
+            return notification;
+        }
+
+        // ฟังก์ชันแสดง Loading Spinner
+        function showLoading(show) {
+            loadingSpinner.style.display = show ? "block" : "none";
+        }
+
+        // ฟังก์ชันโหลดการตั้งค่าจาก Netlify Function
+        async function loadConfig() {
+            try {
+                const response = await fetch("/.netlify/functions/getConfig");
+                if (!response.ok) throw new Error("Failed to load config");
+                const config = await response.json();
+
+                // ตรวจสอบว่ามีค่าที่จำเป็นหรือไม่
+                if (config.username && config.repo && config.token) {
+                    githubConfig = config;
+                } else {
+                    throw new Error("Missing required configuration");
+                }
+            } catch (error) {
+                console.error("Error loading config:", error);
+                showNotification("error", "ไม่สามารถโหลดการตั้งค่าระบบได้");
+                // ใช้ค่าเริ่มต้นที่กำหนดไว้แล้ว
+            }
+        }
+
+        // ฟังก์ชันโหลดความคิดเห็นของผู้ใช้
+        async function loadUserFeedback() {
+            if (!isLoggedIn || !currentUser) return;
+
+            const feedbackSpinner = document.getElementById("feedbackSpinner");
+            feedbackSpinner.style.display = "block";
+            const feedbackList = document.getElementById("userFeedbackList");
+            feedbackList.innerHTML = '<div class="spinner" id="feedbackSpinner"></div>';
+
+            try {
+                const feedbacks = await loadJsonFile("feedback.json");
+                const userFeedbacks = feedbacks
+                    ? feedbacks.filter((f) => f.userId === currentUser.id)
+                    : [];
+
+                if (userFeedbacks.length === 0) {
+                    feedbackList.innerHTML =
+                        '<p class="no-feedback">ไม่พบความคิดเห็นของคุณ</p>';
+                    return;
+                }
+
+                // เรียงลำดับจากใหม่ไปเก่า
+                userFeedbacks.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+                feedbackList.innerHTML = userFeedbacks
+                    .map((feedback) => {
+                        const date = new Date(feedback.createdAt).toLocaleDateString("th-TH");
+                        let statusClass = feedback.status || "pending";
+                        let statusText = "";
+
+                        switch (feedback.status) {
+                            case "in_progress":
+                                statusText = "กำลังดำเนินการ";
+                                statusClass = "reviewed";
+                                break;
+                            case "pending":
+                                statusText = "รอดำเนินการ";
+                                statusClass = "pending";
+                                break;
+                            case "resolved":
+                                statusText = "แก้ไขแล้ว";
+                                statusClass = "resolved";
+                                break;
+                            case "rejected":
+                                statusText = "ปฏิเสธ";
+                                statusClass = "rejected";
+                                break;
+                            default:
+                                statusText = "รอดำเนินการ";
+                                statusClass = "pending";
+                        }
+
+                        let replySection = "";
+
+                        if (feedback.reply) {
+                            const replyDate = feedback.replyDate
+                                ? new Date(feedback.replyDate).toLocaleDateString("th-TH")
+                                : "-";
+                            replySection = `
+                        <div class="feedback-reply">
+                            <div class="reply-title">ตอบกลับจาก Admin</div>
+                            <div class="reply-date">วันที่ตอบกลับ: ${replyDate}</div>
+                            <div>${feedback.reply}</div>
+                        </div>
+                    `;
+                        }
+
+                        return `
+                    <div class="feedback-item">
+                        <div class="feedback-header">
+                            <div class="feedback-title">${feedback.title}</div>
+                            <div>
+                                <span class="feedback-date">${date}</span>
+                                <span class="feedback-status ${statusClass}">${statusText}</span>
+                            </div>
+                        </div>
+                        <div class="feedback-content">${feedback.content}</div>
+                        ${replySection}
+                    </div>
+                `;
+                    })
+                    .join("");
+            } catch (error) {
+                console.error("Load feedback error:", error);
+                feedbackList.innerHTML =
+                    '<p class="no-feedback">เกิดข้อผิดพลาดในการโหลดความคิดเห็น</p>';
+            } finally {
+                feedbackSpinner.style.display = "none";
+            }
+        }
+
+        // ฟังก์ชันโหลดรายงานปัญหาของผู้ใช้
+        async function loadUserReports() {
+            if (!isLoggedIn || !currentUser) return;
+
+            const reportsSpinner = document.getElementById("reportsSpinner");
+            reportsSpinner.style.display = "block";
+            const reportsList = document.getElementById("userReportsList");
+            reportsList.innerHTML = '<div class="spinner" id="reportsSpinner"></div>';
+
+            try {
+                const reports = await loadJsonFile("reports.json");
+                const userReports = reports
+                    ? reports.filter((r) => r.userId === currentUser.id)
+                    : [];
+
+                if (userReports.length === 0) {
+                    reportsList.innerHTML =
+                        '<p class="no-reports">ไม่พบรายงานปัญหาของคุณ</p>';
+                    return;
+                }
+
+                // เรียงลำดับจากใหม่ไปเก่า
+                userReports.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+                reportsList.innerHTML = userReports
+                    .map((report) => {
+                        const date = new Date(report.createdAt).toLocaleDateString("th-TH");
+                        let statusClass = report.status || "pending";
+                        let replySection = "";
+
+                        if (report.reply) {
+                            const replyDate = report.replyDate
+                                ? new Date(report.replyDate).toLocaleDateString("th-TH")
+                                : "-";
+                            replySection = `
+            <div class="report-reply">
+              <div class="reply-title">ตอบกลับจาก Admin</div>
+              <div class="reply-date">วันที่ตอบกลับ: ${replyDate}</div>
+              <div>${report.reply}</div>
+            </div>
+          `;
+                        }
+
+                        // แสดงไฟล์แนบถ้ามี
+                        let attachmentsSection = "";
+                        if (report.attachments && report.attachments.length > 0) {
+                            attachmentsSection = `
+            <div class="attachments-container" style="margin-top: 10px;">
+              ${report.attachments
+                                    .map(
+                                        (attachment) => `
+                  <div class="attachment-item">
+                    ${attachment.type === "image"
+                                                ? `<img src="${attachment.url}" alt="Attachment">`
+                                                : `<video controls><source src="${attachment.url}" type="video/mp4"></video>`
+                                            }
+                  </div>
+                `
+                                    )
+                                    .join("")}
+            </div>
+          `;
+                        }
+
+                        return `
+          <div class="report-item">
+            <div class="report-header">
+              <div class="report-title">${report.title}</div>
+              <div>
+                <span class="report-date">${date}</span>
+                <span class="report-status ${statusClass}">${statusClass === "pending"
+                                ? "รอดำเนินการ"
+                                : statusClass === "reviewed"
+                                    ? "กำลังตรวจสอบ"
+                                    : "เสร็จสิ้น"
+                            }</span>
+              </div>
+            </div>
+            <div class="report-content">${report.content}</div>
+            ${attachmentsSection}
+            ${replySection}
+          </div>
+        `;
+                    })
+                    .join("");
+            } catch (error) {
+                console.error("Load reports error:", error);
+                reportsList.innerHTML =
+                    '<p class="no-reports">เกิดข้อผิดพลาดในการโหลดรายงานปัญหา</p>';
+            } finally {
+                reportsSpinner.style.display = "none";
+            }
+        }
+
+        // แก้ไขฟังก์ชัน switchTab เพื่อโหลดข้อมูลเมื่อเปลี่ยนแท็บ
+        function switchTab(tabName) {
+            profileTabs.forEach((tab) => {
+                if (tab.getAttribute("data-tab") === tabName) {
+                    tab.classList.add("active");
+                } else {
+                    tab.classList.remove("active");
+                }
+            });
+
+            profileSections.forEach((section) => {
+                if (section.id === `${tabName}ProfileSection`) {
+                    section.classList.add("active");
+
+                    // โหลดข้อมูลเมื่อเปลี่ยนแท็บ
+                    if (tabName === "feedback") {
+                        loadUserFeedback();
+                    } else if (tabName === "reports") {
+                        loadUserReports();
+                    }
+                } else {
+                    section.classList.remove("active");
+                }
+            });
+        }
+
+        // ฟังก์ชันโหลดข้อมูลผู้ใช้จาก GitHub
+        async function loadUsers() {
+            if (
+                !githubConfig.username ||
+                !githubConfig.repo ||
+                !githubConfig.token ||
+                !githubConfig.usersFilename
+            ) {
+                console.log("GitHub settings incomplete, skipping users load");
+                return [];
+            }
+
+            try {
+                const response = await fetch(
+                    `https://api.github.com/repos/${githubConfig.username}/${githubConfig.repo}/contents/${githubConfig.usersFilename}`,
+                    {
+                        headers: {
+                            Authorization: `token ${githubConfig.token}`,
+                            Accept: "application/vnd.github.v3+json",
+                        },
+                    }
+                );
+
+                if (response.status === 404) {
+                    return [];
+                }
+
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.message || "Failed to load users");
+                }
+
+                const data = await response.json();
+                const decodedContent = decodeURIComponent(escape(atob(data.content)));
+                return JSON.parse(decodedContent) || [];
+            } catch (error) {
+                console.error("Load users error:", error);
+                showNotification(
+                    "error",
+                    `โหลดข้อมูลผู้ใช้ไม่สำเร็จ: ${error.message || "Unknown error"}`
+                );
+                return [];
+            }
+        }
+
+        // ฟังก์ชันบันทึกข้อมูลผู้ใช้ไปยัง GitHub
+        async function saveUsers(users) {
+            if (
+                !githubConfig.username ||
+                !githubConfig.repo ||
+                !githubConfig.token ||
+                !githubConfig.usersFilename
+            ) {
+                console.log("GitHub settings incomplete, skipping users save");
+                return false;
+            }
+
+            try {
+                let sha = null;
+                try {
+                    const checkResponse = await fetch(
+                        `https://api.github.com/repos/${githubConfig.username}/${githubConfig.repo}/contents/${githubConfig.usersFilename}`,
+                        {
+                            headers: {
+                                Authorization: `token ${githubConfig.token}`,
+                                Accept: "application/vnd.github.v3+json",
+                            },
+                        }
+                    );
+
+                    if (checkResponse.ok) {
+                        const checkData = await checkResponse.json();
+                        sha = checkData.sha;
+                    }
+                } catch (e) {
+                    console.log("File not found, will create new one");
+                }
+
+                const content = JSON.stringify(users, null, 2);
+                const encodedContent = btoa(unescape(encodeURIComponent(content)));
+
+                const response = await fetch(
+                    `https://api.github.com/repos/${githubConfig.username}/${githubConfig.repo}/contents/${githubConfig.usersFilename}`,
+                    {
+                        method: "PUT",
+                        headers: {
+                            Authorization: `token ${githubConfig.token}`,
+                            Accept: "application/vnd.github.v3+json",
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({
+                            message: "Update users data",
+                            content: encodedContent,
+                            sha: sha,
+                        }),
+                    }
+                );
+
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.message || "Failed to save users");
+                }
+
+                return true;
+            } catch (error) {
+                console.error("Save users error:", error);
+                showNotification(
+                    "error",
+                    `บันทึกข้อมูลผู้ใช้ไม่สำเร็จ: ${error.message || "Unknown error"}`
+                );
+                return false;
+            }
+        }
+
+        // ฟังก์ชันเข้าสู่ระบบ
+        loginFormElement.addEventListener("submit", async function (e) {
+            e.preventDefault();
+            const username = document.getElementById("loginEmail").value.trim();
+            const password = document.getElementById("loginPassword").value.trim();
+
+            if (!username || !password) {
+                showNotification("error", "กรุณากรอกชื่อผู้ใช้และรหัสผ่าน");
+                return;
+            }
+
+            showLoading(true);
+
+            try {
+                const users = await loadUsers();
+                const user = users.find(
+                    (u) => u.name === username && u.password === password
+                );
+
+                if (user) {
+                    currentUser = {
+                        id: user.id,
+                        name: user.name,
+                        email: user.email,
+                        plan: user.plan || "free",
+                        joinDate: user.joinDate,
+                        displayName: user.displayName || user.name,
+                        bio: user.bio || "",
+                        avatarUrl: user.avatarUrl || DEFAULT_AVATAR_URL,
+                        bannerUrl: user.bannerUrl || DEFAULT_BANNER_URL,
+                        downloadCount: user.downloadCount || 0,
+                        balance: user.balance || 0,
+                    };
+
+                    isLoggedIn = true;
+                    isPremium = currentUser.plan === "premium";
+
+                    // บันทึกสถานะการเข้าสู่ระบบ
+                    saveAppState();
+
+                    updateUIAfterLogin();
+                    authContainer.style.display = "none";
+                    mainHeader.style.display = "flex";
+                    mainContent.classList.add("active");
+
+                    updateProfileInfo();
+                    updatePremiumModalButtons();
+
+                    showNotification("success", "เข้าสู่ระบบสำเร็จ!");
+                } else {
+                    showNotification("error", "ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง");
+                }
+            } catch (error) {
+                console.error("Login error:", error);
+                showNotification("error", "เกิดข้อผิดพลาดในการเข้าสู่ระบบ");
+            } finally {
+                showLoading(false);
+            }
+        });
+
+        // ฟังก์ชันสมัครสมาชิก
+        registerFormElement.addEventListener("submit", async function (e) {
+            e.preventDefault();
+            const name = document.getElementById("registerName").value.trim();
+            const email = document.getElementById("registerEmail").value.trim();
+            const password = document
+                .getElementById("registerPassword")
+                .value.trim();
+            const confirmPassword = document
+                .getElementById("registerConfirmPassword")
+                .value.trim();
+
+            if (!name || !email || !password || !confirmPassword) {
+                showNotification("error", "กรุณากรอกข้อมูลให้ครบถ้วน");
+                return;
+            }
+
+            if (password !== confirmPassword) {
+                showNotification("error", "รหัสผ่านไม่ตรงกัน");
+                return;
+            }
+
+            if (password.length < 6) {
+                showNotification(
+                    "error",
+                    "รหัสผ่านต้องมีความยาวอย่างน้อย 6 ตัวอักษร"
+                );
+                return;
+            }
+
+            showLoading(true);
+
+            try {
+                const users = await loadUsers();
+
+                const usernameExists = users.some((u) => u.name === name);
+                if (usernameExists) {
+                    showNotification("error", "ชื่อผู้ใช้นี้ถูกใช้งานแล้ว");
+                    return;
+                }
+
+                const emailExists = users.some((u) => u.email === email);
+                if (emailExists) {
+                    showNotification("error", "อีเมลนี้ถูกใช้งานแล้ว");
+                    return;
+                }
+
+                const userId = Date.now().toString();
+                const newUser = {
+                    id: userId,
+                    name: name,
+                    email: email,
+                    password: password,
+                    plan: "free",
+                    joinDate: new Date().toISOString(),
+                    displayName: name,
+                    bio: "",
+                    avatarUrl: DEFAULT_AVATAR_URL,
+                    bannerUrl: DEFAULT_BANNER_URL,
+                    downloadCount: 0,
+                    balance: 0,
+                };
+
+                users.push(newUser);
+                const saveResult = await saveUsers(users);
+
+                if (saveResult) {
+                    currentUser = {
+                        id: newUser.id,
+                        name: newUser.name,
+                        email: newUser.email,
+                        plan: newUser.plan,
+                        joinDate: newUser.joinDate,
+                        displayName: newUser.displayName,
+                        bio: newUser.bio,
+                        avatarUrl: newUser.avatarUrl,
+                        bannerUrl: newUser.bannerUrl,
+                        downloadCount: newUser.downloadCount,
+                    };
+
+                    isLoggedIn = true;
+                    isPremium = false;
+
+                    // บันทึกสถานะการเข้าสู่ระบบ
+                    saveAppState();
+
+                    updateUIAfterLogin();
+                    authContainer.style.display = "none";
+                    mainHeader.style.display = "flex";
+                    mainContent.classList.add("active");
+
+                    updateProfileInfo();
+                    updatePremiumModalButtons();
+
+                    registerForm.style.display = "none";
+                    loginForm.style.display = "block";
+
+                    showNotification("success", "สมัครสมาชิกสำเร็จ!");
+                } else {
+                    showNotification("error", "ไม่สามารถบันทึกข้อมูลผู้ใช้ได้");
+                }
+            } catch (error) {
+                console.error("Register error:", error);
+                showNotification("error", "เกิดข้อผิดพลาดในการสมัครสมาชิก");
+            } finally {
+                showLoading(false);
+            }
+        });
+
+        // ฟังก์ชันอัปเดตข้อมูลโปรไฟล์ในเมนู
+        function updateProfileInfo() {
+            if (isLoggedIn && currentUser) {
+                profileInfo.style.display = "block";
+                profileName.textContent = currentUser.displayName || currentUser.name;
+                profileEmail.textContent = currentUser.email;
+
+                profilePlan.className = "profile-plan " + currentUser.plan;
+                if (currentUser.plan === "free") {
+                    profilePlan.textContent = "บัญชีฟรี";
+                } else if (currentUser.plan === "basic") {
+                    profilePlan.textContent = "แพ็คเกจพื้นฐาน";
+                } else if (currentUser.plan === "premium") {
+                    profilePlan.textContent = "แพ็คเกจพรีเมียม";
+                }
+
+                if (isLoggedIn && currentUser) {
+                    document.getElementById("balanceAmount").textContent = currentUser.balance || 0;
+                }
+
+                // อัปเดตรูปโปรไฟล์ใน header
+                const profileImage = document.getElementById("profileImage");
+                profileImage.src = currentUser.avatarUrl;
+            } else {
+                profileInfo.style.display = "none";
+            }
+        }
+
+        // ฟังก์ชันอัปเดตปุ่มในโมดัล Premium
+        function updatePremiumModalButtons() {
+            if (!isLoggedIn || !currentUser) return;
+
+            freePlanBtn.style.display = "none";
+            basicPlanBtn.style.display = "none";
+            premiumPlanBtn.style.display = "none";
+            upgradePlanBtn.style.display = "none";
+
+            if (currentUser.plan === "free") {
+                freePlanBtn.style.display = "block";
+                basicPlanBtn.style.display = "block";
+                premiumPlanBtn.style.display = "block";
+                upgradePlanBtn.style.display = "none";
+                premiumPrice.textContent = "100 บาท";
+            } else if (currentUser.plan === "basic") {
+                freePlanBtn.style.display = "none";
+                basicPlanBtn.style.display = "none";
+                premiumPlanBtn.style.display = "none";
+                upgradePlanBtn.style.display = "block";
+                premiumPrice.textContent = "50 บาท (อัปเกรดจาก Basic)";
+            } else if (currentUser.plan === "premium") {
+                freePlanBtn.style.display = "none";
+                basicPlanBtn.style.display = "none";
+                premiumPlanBtn.style.display = "none";
+                upgradePlanBtn.style.display = "none";
+                premiumPrice.textContent = "100 บาท";
+            }
+        }
+
+        // ฟังก์ชันเข้าชมในฐานะผู้เยี่ยมชม
+        continueAsGuest.addEventListener("click", function (e) {
+            e.preventDefault();
+            currentUser = null;
+            isLoggedIn = false;
+            isPremium = false;
+
+            // บันทึกสถานะ
+            saveAppState();
+
+            authContainer.style.display = "none";
+            mainHeader.style.display = "flex";
+            mainContent.classList.add("active");
+            updateUIAfterLogin();
+        });
+
+        // ฟังก์ชันอัปเดต UI หลังจากเข้าสู่ระบบ
+        function updateUIAfterLogin() {
+            if (isLoggedIn) {
+                guestMessage.style.display = "none";
+                headerLoginBtn.style.display = "none";
+                profileBtn.style.display = "flex";
+
+                const profileImage = document.getElementById("profileImage");
+                profileImage.src = currentUser.avatarUrl;
+
+                logoutBtn.style.display = "flex";
+                viewProfileBtn.style.display = "flex";
+            } else {
+                guestMessage.style.display = "block";
+                headerLoginBtn.style.display = "block";
+                profileBtn.style.display = "none";
+                logoutBtn.style.display = "none";
+                viewProfileBtn.style.display = "none";
+            }
+
+            loadMods(currentCategory);
+        }
+
+        // อัปเดตสถานะ Premium
+        function updatePremiumStatus() {
+            if (!isLoggedIn || !currentUser) {
+                premiumStatus.innerHTML =
+                    'บัญชีฟรี <button class="btn btn-primary" style="padding: 5px 10px; font-size: 12px;" id="upgradeFromSettingsBtn">อัปเกรด</button>';
+                return;
+            }
+
+            if (currentUser.plan === "free") {
+                premiumStatus.innerHTML =
+                    'บัญชีฟรี <button class="btn btn-primary" style="padding: 5px 10px; font-size: 12px;" id="upgradeFromSettingsBtn">อัปเกรด</button>';
+            } else if (currentUser.plan === "basic") {
+                premiumStatus.innerHTML =
+                    'แพ็คเกจพื้นฐาน <button class="btn btn-primary" style="padding: 5px 10px; font-size: 12px;" id="upgradeFromSettingsBtn">อัปเกรด</button>';
+            } else if (currentUser.plan === "premium") {
+                premiumStatus.innerHTML =
+                    'แพ็คเกจพรีเมียม <span style="color: #ff9800;"><i class="fas fa-crown"></i></span>';
+            }
+
+            // เพิ่ม event listener สำหรับปุ่มอัปเกรดในหน้า Settings
+            const upgradeFromSettingsBtn = document.getElementById(
+                "upgradeFromSettingsBtn"
+            );
+            if (upgradeFromSettingsBtn) {
+                upgradeFromSettingsBtn.addEventListener("click", function () {
+                    settingsModal.classList.remove("active");
+                    openPremiumModal();
+                });
+            }
+        }
+
+        // ฟังก์ชันออกจากระบบ
+        logoutBtn.addEventListener("click", function () {
+            currentUser = null;
+            isLoggedIn = false;
+            isPremium = false;
+
+            // บันทึกสถานะ
+            saveAppState();
+
+            authContainer.style.display = "flex";
+            mainHeader.style.display = "none";
+            mainContent.classList.remove("active");
+            updateUIAfterLogin();
+        });
+
+        // ฟังก์ชันโหลดหมวดหมู่จาก GitHub
+        async function loadCategories() {
+            if (
+                !githubConfig.username ||
+                !githubConfig.repo ||
+                !githubConfig.token ||
+                !githubConfig.categoriesFilename
+            ) {
+                console.log("GitHub settings incomplete, skipping categories load");
+                return;
+            }
+
+            try {
+                const response = await fetch(
+                    `https://api.github.com/repos/${githubConfig.username}/${githubConfig.repo}/contents/${githubConfig.categoriesFilename}`,
+                    {
+                        headers: {
+                            Authorization: `token ${githubConfig.token}`,
+                            Accept: "application/vnd.github.v3+json",
+                        },
+                    }
+                );
+
+                if (response.status === 404) {
+                    categories = [];
+                    return;
+                }
+
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.message || "Failed to load categories");
+                }
+
+                const data = await response.json();
+                const decodedContent = decodeURIComponent(escape(atob(data.content)));
+                categories = JSON.parse(decodedContent) || [];
+            } catch (error) {
+                console.error("Load categories error:", error);
+                showNotification(
+                    "error",
+                    `โหลดหมวดหมู่ไม่สำเร็จ: ${error.message || "Unknown error"}`
+                );
+            }
+        }
+
+        // ฟังก์ชันโหลดและแสดง MOD จาก GitHub
+        async function loadMods(category = "all", searchQuery = "") {
+            showLoading(true);
+            modGrid.innerHTML = "";
+            searchResults.style.display = "none";
+            pageTitle.style.display = "block";
+            loadedModIds.clear();
+
+            // บันทึกหมวดหมู่ปัจจุบัน
+            currentCategory = category;
+            saveAppState();
+
+            try {
+                const response = await fetch(
+                    `https://api.github.com/repos/${githubConfig.username}/${githubConfig.repo}/contents/${githubConfig.filename}`,
+                    {
+                        headers: {
+                            Authorization: `token ${githubConfig.token}`,
+                            Accept: "application/vnd.github.v3+json",
+                        },
+                    }
+                );
+
+                if (response.status === 404) {
+                    modGrid.innerHTML = '<p class="no-results">ยังไม่มี MOD ในระบบ</p>';
+                    showLoading(false);
+                    return;
+                }
+
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.message || "Failed to load data");
+                }
+
+                const data = await response.json();
+
+                if (!data.content) {
+                    throw new Error("ไฟล์ไม่มีข้อมูล content");
+                }
+
+                const decodedContent = decodeURIComponent(escape(atob(data.content)));
+                let mods = JSON.parse(decodedContent) || [];
+
+                if (category !== "all") {
+                    mods = mods.filter((mod) => {
+                        if (!mod.categoryIds) return false;
+                        const modCategories = categories.filter((c) =>
+                            mod.categoryIds.includes(c.id)
+                        );
+                        return modCategories.some(
+                            (c) => c.name.toLowerCase() === category.toLowerCase()
+                        );
+                    });
+
+                    pageTitle.textContent = `${category} ยอดนิยม`;
+                } else {
+                    pageTitle.textContent = "MOD ยอดนิยม";
+                }
+
+                if (searchQuery) {
+                    mods = mods.filter(
+                        (mod) =>
+                            mod.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                            (mod.description &&
+                                mod.description
+                                    .toLowerCase()
+                                    .includes(searchQuery.toLowerCase()))
+                    );
+
+                    if (mods.length > 0) {
+                        searchResults.style.display = "block";
+                        searchResults.innerHTML = `<p>พบผลลัพธ์ ${mods.length} รายการสำหรับ "${searchQuery}"</p>`;
+                        pageTitle.style.display = "none";
+                    } else {
+                        searchResults.style.display = "block";
+                        searchResults.innerHTML = `<p class="no-results">ไม่พบผลลัพธ์สำหรับ "${searchQuery}"</p>`;
+                        pageTitle.style.display = "none";
+                    }
+                }
+
+                mods.sort((a, b) => (b.downloadCount || 0) - (a.downloadCount || 0));
+
+                if (mods.length === 0) {
+                    modGrid.innerHTML =
+                        '<p class="no-results">ไม่พบ MOD ในหมวดหมู่นี้</p>';
+                } else {
+                    mods.forEach((mod) => {
+                        if (loadedModIds.has(mod.id)) {
+                            return;
+                        }
+                        loadedModIds.add(mod.id);
+
+                        const sortedVersions = sortVersions(mod.versions || []);
+                        const latestVersion =
+                            sortedVersions.length > 0 ? sortedVersions[0] : null;
+                        const downloadUrl = latestVersion
+                            ? latestVersion.link || latestVersion.downloadUrl
+                            : "#";
+
+                        let modCategoryNames = [];
+                        if (mod.categoryIds) {
+                            const modCategories = categories.filter((c) =>
+                                mod.categoryIds.includes(c.id)
+                            );
+                            modCategoryNames = modCategories.map((c) => c.name);
+                        }
+
+                        let imageUrl =
+                            "https://via.placeholder.com/300x150?text=" +
+                            encodeURIComponent(mod.name);
+                        if (latestVersion && latestVersion.image) {
+                            imageUrl = latestVersion.image;
+                        } else if (mod.image) {
+                            imageUrl = mod.image;
+                        }
+
+                        let modTypeBadge = "";
+                        if (mod.isPremium) {
+                            modTypeBadge = '<span class="premium-badge">Premium</span>';
+                        } else if (mod.isBasic) {
+                            modTypeBadge = '<span class="basic-badge">Basic</span>';
+                        } else {
+                            modTypeBadge = '<span class="free-badge">Free</span>';
+                        }
+
+                        let canDownload = false;
+                        let downloadText = "ดาวน์โหลด";
+
+                        if (!isLoggedIn) {
+                            canDownload = false;
+                            downloadText = "ต้องเข้าสู่ระบบ";
+                        } else if (mod.isPremium) {
+                            canDownload = isPremium;
+                            downloadText = isPremium
+                                ? "ดาวน์โหลด (Premium)"
+                                : "ต้องอัปเกรดเป็น Premium";
+                        } else if (mod.isBasic) {
+                            canDownload = currentUser.plan === "basic" || isPremium;
+                            downloadText = canDownload
+                                ? "ดาวน์โหลด (Basic)"
+                                : "ต้องสมัครแพ็คเกจพื้นฐาน";
+                        } else {
+                            canDownload = true;
+                            downloadText = "ดาวน์โหลด (free)";
+                        }
+
+                        const modCard = document.createElement("div");
+                        modCard.className = "mod-card";
+                        modCard.innerHTML = `
+                            <img src="${imageUrl}" alt="${mod.name
+                            }" class="mod-image">
+                            <div class="mod-info">
+                                <h3 class="mod-title">${mod.name
+                            } ${modTypeBadge}</h3>
+                                <p class="mod-author">${mod.description || "ไม่มีคำอธิบาย"
+                            }</p>
+                                ${modCategoryNames.length > 0
+                                ? `<div style="margin-bottom: 10px;">
+                                        ${modCategoryNames
+                                    .map(
+                                        (c) =>
+                                            `<span class="category-badge">${c}</span>`
+                                    )
+                                    .join(" ")}
+                                    </div>`
+                                : ""
+                            }
+                                <button class="mod-download ${!canDownload ? "disabled" : ""
+                            }" data-id="${mod.id
+                            }" data-url="${downloadUrl}" data-is-premium="${mod.isPremium
+                            }" data-is-basic="${mod.isBasic}">
+                                    ${downloadText}
+                                </button>
+                            </div>
+                        `;
+                        modGrid.appendChild(modCard);
+                    });
+                }
+
+                document.querySelectorAll(".mod-download").forEach((btn) => {
+                    btn.addEventListener("click", function () {
+                        const modId = this.getAttribute("data-id");
+                        const downloadUrl = this.getAttribute("data-url");
+                        const isPremiumMod =
+                            this.getAttribute("data-is-premium") === "true";
+                        const isBasicMod = this.getAttribute("data-is-basic") === "true";
+
+                        if (!isLoggedIn) {
+                            loginRequiredModal.classList.add("active");
+                            overlay.classList.add("active");
+                            return;
+                        }
+
+                        if (isPremiumMod && !isPremium) {
+                            showNotification(
+                                "error",
+                                "คุณต้องอัปเกรดเป็นสมาชิก Premium เพื่อดาวน์โหลด MOD นี้"
+                            );
+                            return;
+                        }
+
+                        if (isBasicMod && currentUser.plan !== "basic" && !isPremium) {
+                            showNotification(
+                                "error",
+                                "คุณต้องสมัครแพ็คเกจพื้นฐานเพื่อดาวน์โหลด MOD นี้"
+                            );
+                            return;
+                        }
+
+                        downloadMod(modId, downloadUrl);
+                    });
+                });
+            } catch (error) {
+                console.error("Load mods error:", error);
+                showNotification(
+                    "error",
+                    `โหลดข้อมูลไม่สำเร็จ: ${error.message || "Unknown error"}`
+                );
+                modGrid.innerHTML =
+                    '<p class="no-results">เกิดข้อผิดพลาดในการโหลดข้อมูล</p>';
+            } finally {
+                showLoading(false);
+            }
+        }
+
+        // เรียงลำดับเวอร์ชันจากมากไปน้อย
+        function sortVersions(versions) {
+            if (!versions || versions.length === 0) return [];
+
+            return [...versions].sort((a, b) => {
+                const aParts = a.version.split(".").map((part) => {
+                    const num = parseInt(part);
+                    return isNaN(num) ? part : num;
+                });
+
+                const bParts = b.version.split(".").map((part) => {
+                    const num = parseInt(part);
+                    return isNaN(num) ? part : num;
+                });
+
+                for (let i = 0; i < Math.max(aParts.length, bParts.length); i++) {
+                    const aPart = aParts[i] || 0;
+                    const bPart = bParts[i] || 0;
+
+                    if (typeof aPart === "number" && typeof bPart === "number") {
+                        if (aPart > bPart) return -1;
+                        if (aPart < bPart) return 1;
+                    } else {
+                        const aStr = aPart.toString();
+                        const bStr = bPart.toString();
+                        if (aStr > bStr) return -1;
+                        if (aStr < bStr) return 1;
+                    }
+                }
+
+                return 0;
+            });
+        }
+
+        // ฟังก์ชันดาวน์โหลด MOD
+        function downloadMod(modId, downloadUrl) {
+            if (
+                !downloadUrl ||
+                downloadUrl === "#" ||
+                downloadUrl === "undefined"
+            ) {
+                showNotification("error", "ไม่พบลิงค์ดาวน์โหลดสำหรับ MOD นี้");
+                return;
+            }
+
+            showNotification("info", "กำลังเตรียมดาวน์โหลด...");
+
+            setTimeout(() => {
+                try {
+                    let finalUrl = downloadUrl;
+                    if (
+                        !downloadUrl.startsWith("http://") &&
+                        !downloadUrl.startsWith("https://")
+                    ) {
+                        finalUrl = "https://" + downloadUrl;
+                    }
+
+                    const a = document.createElement("a");
+                    a.href = finalUrl;
+                    a.target = "_blank";
+                    a.rel = "noopener noreferrer";
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+
+                    showNotification("success", "เริ่มดาวน์โหลดแล้ว");
+                    updateDownloadCount(modId);
+                } catch (error) {
+                    console.error("Download error:", error);
+                    showNotification(
+                        "error",
+                        "ไม่สามารถเปิดลิงค์ดาวน์โหลดได้: " + error.message
+                    );
+                }
+            }, 500);
+        }
+
+        // ฟังก์ชันอัปเดตจำนวนการดาวน์โหลด
+        async function updateDownloadCount(modId) {
+            try {
+                const response = await fetch(
+                    `https://api.github.com/repos/${githubConfig.username}/${githubConfig.repo}/contents/${githubConfig.filename}`,
+                    {
+                        headers: {
+                            Authorization: `token ${githubConfig.token}`,
+                            Accept: "application/vnd.github.v3+json",
+                        },
+                    }
+                );
+
+                if (!response.ok) {
+                    throw new Error("Failed to load mod data");
+                }
+
+                const data = await response.json();
+                const decodedContent = decodeURIComponent(escape(atob(data.content)));
+                let mods = JSON.parse(decodedContent) || [];
+
+                const modIndex = mods.findIndex((mod) => mod.id === modId);
+                if (modIndex !== -1) {
+                    mods[modIndex].downloadCount =
+                        (mods[modIndex].downloadCount || 0) + 1;
+
+                    const saveResponse = await fetch(
+                        `https://api.github.com/repos/${githubConfig.username}/${githubConfig.repo}/contents/${githubConfig.filename}`,
+                        {
+                            method: "PUT",
+                            headers: {
+                                Authorization: `token ${githubConfig.token}`,
+                                Accept: "application/vnd.github.v3+json",
+                                "Content-Type": "application/json",
+                            },
+                            body: JSON.stringify({
+                                message: `Update download count for mod ${modId}`,
+                                content: btoa(
+                                    unescape(encodeURIComponent(JSON.stringify(mods, null, 2)))
+                                ),
+                                sha: data.sha,
+                            }),
+                        }
+                    );
+
+                    if (!saveResponse.ok) {
+                        console.error("Failed to update download count");
+                    }
+                }
+
+                // อัปเดตจำนวนดาวน์โหลดของผู้ใช้
+                if (isLoggedIn && currentUser) {
+                    const users = await loadUsers();
+                    const userIndex = users.findIndex((u) => u.id === currentUser.id);
+
+                    if (userIndex !== -1) {
+                        users[userIndex].downloadCount =
+                            (users[userIndex].downloadCount || 0) + 1;
+                        currentUser.downloadCount = users[userIndex].downloadCount;
+
+                        await saveUsers(users);
+                        updateProfileModal();
+                    }
+                }
+            } catch (error) {
+                console.error("Update download count error:", error);
+            }
+        }
+
+        // ระบบค้นหา
+        searchBtn.addEventListener("click", function () {
+            const query = searchInput.value.trim();
+            if (query) {
+                loadMods(currentCategory, query);
+            } else {
+                loadMods(currentCategory);
+            }
+        });
+
+        searchInput.addEventListener("keypress", function (e) {
+            if (e.key === "Enter") {
+                const query = searchInput.value.trim();
+                if (query) {
+                    loadMods(currentCategory, query);
+                } else {
+                    loadMods(currentCategory);
+                }
+            }
+        });
+
+        // เมนูด้านข้าง
+        sidebarHome.addEventListener("click", function () {
+            currentCategory = "all";
+            loadMods(currentCategory);
+            sidebar.classList.remove("active");
+            overlay.classList.remove("active");
+        });
+
+        sidebarMod.addEventListener("click", function () {
+            currentCategory = "mod";
+            loadMods(currentCategory);
+            sidebar.classList.remove("active");
+            overlay.classList.remove("active");
+        });
+
+        sidebarSkin.addEventListener("click", function () {
+            currentCategory = "skin";
+            loadMods(currentCategory);
+            sidebar.classList.remove("active");
+            overlay.classList.remove("active");
+        });
+
+        sidebarTexturepack.addEventListener("click", function () {
+            currentCategory = "texturepack";
+            loadMods(currentCategory);
+            sidebar.classList.remove("active");
+            overlay.classList.remove("active");
+        });
+
+        sidebarMap.addEventListener("click", function () {
+            currentCategory = "map";
+            loadMods(currentCategory);
+            sidebar.classList.remove("active");
+            overlay.classList.remove("active");
+        });
+
+        // เปิด/ปิดเมนูแฮมเบอร์เกอร์
+        menuBtn.addEventListener("click", function () {
+            sidebar.classList.toggle("active");
+            overlay.classList.toggle("active");
+        });
+
+        // เปิด/ปิดเมนูโปรไฟล์
+        profileBtn.addEventListener("click", function (e) {
+            e.stopPropagation();
+            profileMenu.classList.toggle("active");
+        });
+
+        // เปิดโมดัลพรีเมียม
+        function openPremiumModal() {
+            // ปิดโมดัลตั้งค่าถ้าเปิดอยู่
+            settingsModal.classList.remove("active");
+
+            premiumModal.classList.add("active");
+            profileMenu.classList.remove("active");
+            overlay.classList.add("active");
+            updatePremiumModalButtons();
+        }
+
+        premiumBtn.addEventListener("click", function () {
+            openPremiumModal();
+        });
+
+        // ปิดโมดัลพรีเมียม
+        closePremiumModal.addEventListener("click", function () {
+            premiumModal.classList.remove("active");
+            overlay.classList.remove("active");
+        });
+
+        // เปิดโมดัลตั้งค่า
+        settingsBtn.addEventListener("click", function () {
+            settingsModal.classList.add("active");
+            profileMenu.classList.remove("active");
+            overlay.classList.add("active");
+            updatePremiumStatus();
+        });
+
+        // ปิดโมดัลตั้งค่า
+        closeSettingsModal.addEventListener("click", function () {
+            settingsModal.classList.remove("active");
+            overlay.classList.remove("active");
+        });
+
+        // เพิ่มฟังก์ชันตรวจสอบยอดเงินและอัปเกรด
+        async function upgradeMembership(plan) {
+            if (!isLoggedIn || !currentUser) {
+                showNotification("error", "กรุณาเข้าสู่ระบบก่อนอัปเกรดสมาชิก");
+                return false;
+            }
+
+            // ตรวจสอบว่าผู้ใช้มีสิทธิ์อัปเกรดหรือไม่
+            if (currentUser.plan === "premium") {
+                showNotification("info", "คุณเป็นสมาชิก Premium อยู่แล้ว");
+                return false;
+            }
+
+            // กำหนดราคาและส่วนลดสำหรับการอัปเกรด
+            const planPrices = {
+                'basic': 50,
+                'premium': 100
+            };
+
+            // คำนวณราคาที่ต้องจ่าย (ถ้าอยู่ในแผน Basic จะจ่ายแค่ส่วนต่าง)
+            let price = planPrices[plan];
+            if (currentUser.plan === 'basic' && plan === 'premium') {
+                price = planPrices['premium'] - planPrices['basic']; // จ่ายส่วนต่าง 50 บาท
+            }
+
+            // ตรวจสอบยอดเงิน
+            if (currentUser.balance === undefined || currentUser.balance === null) {
+                currentUser.balance = 0; // กำหนดค่าเริ่มต้นถ้าไม่มี
+            }
+
+            // แสดงการยืนยันก่อนอัปเกรด
+            const confirmUpgrade = confirm(`คุณต้องการอัปเกรดเป็น ${plan === 'basic' ? 'Basic' : 'Premium'} ในราคา ${price} บาท\nยอดเงินปัจจุบัน: ${currentUser.balance} บาท`);
+
+            if (!confirmUpgrade) {
+                return false;
+            }
+
+            // ตรวจสอบยอดเงินอีกครั้งก่อนดำเนินการ
+            if (currentUser.balance < price) {
+                showNotification("error", `ยอดเงินไม่เพียงพอสำหรับอัปเกรดเป็น ${plan === 'basic' ? 'Basic' : 'Premium'}\nต้องการเติมเงินหรือไม่?`, "ยอดเงินไม่พอ", 5000);
+
+                // เพิ่มปุ่มเติมเงินใน notification
+                const notification = showNotification("warning",
+                    `ยอดเงินไม่เพียงพอ (ต้องการ ${price} บาท, มี ${currentUser.balance} บาท)`,
+                    "ยอดเงินไม่พอ",
+                    0 // ไม่ปิดอัตโนมัติ
+                );
+
+                // เพิ่มปุ่มเติมเงิน
+                const topupBtn = document.createElement("button");
+                topupBtn.textContent = "เติมเงิน";
+                topupBtn.className = "btn btn-primary";
+                topupBtn.style.marginLeft = "10px";
+                topupBtn.style.marginTop = "10px";
+                topupBtn.onclick = function () {
+                    openTopupModal();
+                    notification.remove();
+                };
+
+                notification.querySelector(".notification-content").appendChild(topupBtn);
+
+                return false;
+            }
+
+            showLoading(true);
+
+            try {
+                const users = await loadUsers();
+                const userIndex = users.findIndex(u => u.id === currentUser.id);
+
+                if (userIndex !== -1) {
+                    // ตรวจสอบยอดเงินอีกครั้งจากเซิร์ฟเวอร์
+                    const serverBalance = users[userIndex].balance || 0;
+                    if (serverBalance < price) {
+                        showNotification("error", `ยอดเงินในระบบไม่เพียงพอ (มี ${serverBalance} บาท)`);
+                        return false;
+                    }
+
+                    // หักเงิน
+                    users[userIndex].balance -= price;
+                    users[userIndex].plan = plan;
+
+                    // ตรวจสอบไม่ให้ยอดเงินติดลบ
+                    if (users[userIndex].balance < 0) {
+                        users[userIndex].balance = 0;
+                    }
+
+                    // บันทึกการเปลี่ยนแปลง
+                    const saveResult = await saveUsers(users);
+
+                    if (saveResult) {
+                        // อัปเดต currentUser
+                        currentUser.balance = users[userIndex].balance;
+                        currentUser.plan = plan;
+                        isPremium = plan === 'premium';
+
+                        // บันทึกสถานะ
+                        saveAppState();
+
+                        // อัปเดต UI
+                        updateProfileInfo();
+                        updatePremiumModalButtons();
+                        updatePremiumStatus();
+
+                        showNotification("success", `อัปเกรดเป็นสมาชิก ${plan === 'basic' ? 'Basic' : 'Premium'} สำเร็จ!\nยอดเงินคงเหลือ: ${currentUser.balance} บาท`);
+                        return true;
+                    } else {
+                        showNotification("error", "ไม่สามารถบันทึกการอัปเกรดได้");
+                        return false;
+                    }
+                } else {
+                    showNotification("error", "ไม่พบข้อมูลผู้ใช้");
+                    return false;
+                }
+            } catch (error) {
+                console.error("Upgrade membership error:", error);
+                showNotification("error", "เกิดข้อผิดพลาดในการอัปเกรดสมาชิก");
+                return false;
+            } finally {
+                showLoading(false);
+            }
+        }
+
+        // แก้ไข Event Listeners สำหรับปุ่มอัปเกรด
+        basicPlanBtn.addEventListener("click", async function () {
+            const success = await upgradeMembership('basic');
+            if (success) {
+                premiumModal.classList.remove("active");
+                overlay.classList.remove("active");
+            }
+        });
+
+        premiumPlanBtn.addEventListener("click", async function () {
+            const success = await upgradeMembership('premium');
+            if (success) {
+                premiumModal.classList.remove("active");
+                overlay.classList.remove("active");
+            }
+        });
+
+        upgradePlanBtn.addEventListener("click", async function () {
+            const success = await upgradeMembership('premium');
+            if (success) {
+                premiumModal.classList.remove("active");
+                overlay.classList.remove("active");
+            }
+        });
+
+        // เพิ่มฟังก์ชันอัปเดตยอดเงินในโมดัล Premium
+        function updatePremiumModalBalance() {
+            if (isLoggedIn && currentUser) {
+                document.getElementById('currentBalanceDisplay').textContent = currentUser.balance || 0;
+            }
+        }
+
+        // เรียกฟังก์ชันนี้เมื่อเปิดโมดัล Premium
+        function openPremiumModal() {
+            premiumModal.classList.add("active");
+            overlay.classList.add("active");
+            updatePremiumModalButtons();
+            updatePremiumModalBalance(); // เพิ่มบรรทัดนี้
+        }
+
+        // เปิดโมดัลโปรไฟล์
+        function openProfileModal() {
+            if (!isLoggedIn || !currentUser) return;
+
+            profileModal.classList.add("active");
+            profileMenu.classList.remove("active");
+            overlay.classList.add("active");
+
+            // เปลี่ยนไปที่แท็บดูโปรไฟล์เมื่อเปิดโมดัล
+            switchTab("view");
+
+            // อัปเดตข้อมูลในโมดัลโปรไฟล์
+            updateProfileModal();
+
+            // โหลดข้อมูลความคิดเห็นและรายงานปัญหา
+            loadUserFeedback();
+            loadUserReports();
+        }
+
+        // อัปเดตข้อมูลในโมดัลโปรไฟล์
+        function updateProfileModal() {
+            if (!isLoggedIn || !currentUser) return;
+
+            profileDisplayName.textContent =
+                currentUser.displayName || currentUser.name;
+            profileUsername.textContent = "@" + currentUser.name;
+            profileBio.textContent = currentUser.bio || "ยังไม่มีคำอธิบายโปรไฟล์";
+            profileViewEmail.textContent = currentUser.email;
+            profileViewBio.textContent =
+                currentUser.bio || "ยังไม่มีคำอธิบายโปรไฟล์";
+
+            if (isLoggedIn && currentUser) {
+                document.getElementById("profileBalanceValue").textContent = currentUser.balance || 0;
+            }
+
+            // อัปเดตรูปโปรไฟล์และรูปพื้นหลัง
+            avatarImage.src = currentUser.avatarUrl || DEFAULT_AVATAR_URL;
+            bannerImage.src = currentUser.bannerUrl || DEFAULT_BANNER_URL;
+            avatarPreviewImage.src = currentUser.avatarUrl || DEFAULT_AVATAR_URL;
+            bannerPreviewImage.src = currentUser.bannerUrl || DEFAULT_BANNER_URL;
+
+            // อัปเดต URL ในช่อง input
+            avatarUrlInput.value =
+                currentUser.avatarUrl && currentUser.avatarUrl !== DEFAULT_AVATAR_URL
+                    ? currentUser.avatarUrl
+                    : "";
+            bannerUrlInput.value =
+                currentUser.bannerUrl && currentUser.bannerUrl !== DEFAULT_BANNER_URL
+                    ? currentUser.bannerUrl
+                    : "";
+
+            // อัปเดตข้อมูลอื่นๆ
+            downloadCount.textContent = currentUser.downloadCount || 0;
+
+            const joinDateObj = new Date(currentUser.joinDate);
+            joinDate.textContent = joinDateObj.toLocaleDateString("th-TH");
+
+            if (currentUser.plan === "free") {
+                userPlan.textContent = "ฟรี";
+            } else if (currentUser.plan === "basic") {
+                userPlan.textContent = "พื้นฐาน";
+            } else if (currentUser.plan === "premium") {
+                userPlan.textContent = "พรีเมียม";
+            }
+
+            // อัปเดตฟอร์มแก้ไข
+            editDisplayName.value = currentUser.displayName || currentUser.name;
+            editBio.value = currentUser.bio || "";
+        }
+
+        // ปิดโมดัลโปรไฟล์
+        closeProfileModal.addEventListener("click", function () {
+            profileModal.classList.remove("active");
+            overlay.classList.remove("active");
+        });
+
+        // เปิดดูโปรไฟล์
+        viewProfileBtn.addEventListener("click", function () {
+            openProfileModal();
+        });
+
+        // แก้ไขโปรไฟล์จากหน้า Settings
+        editProfileBtn.addEventListener("click", function () {
+            settingsModal.classList.remove("active");
+            openProfileModal();
+            switchTab("edit");
+        });
+
+        // สลับแท็บในโมดัลโปรไฟล์
+        function switchTab(tabName) {
+            profileTabs.forEach((tab) => {
+                if (tab.getAttribute("data-tab") === tabName) {
+                    tab.classList.add("active");
+                } else {
+                    tab.classList.remove("active");
+                }
+            });
+
+            profileSections.forEach((section) => {
+                if (section.id === `${tabName}ProfileSection`) {
+                    section.classList.add("active");
+                } else {
+                    section.classList.remove("active");
+                }
+            });
+        }
+
+        // เพิ่ม Event Listener สำหรับแท็บโปรไฟล์
+        profileTabs.forEach((tab) => {
+            tab.addEventListener("click", function () {
+                const tabName = this.getAttribute("data-tab");
+                switchTab(tabName);
+            });
+        });
+
+        // ฟังก์ชันตรวจสอบว่าเป็น URL ที่ถูกต้องหรือไม่
+        function isValidUrl(string) {
+            try {
+                new URL(string);
+                return true;
+            } catch (_) {
+                return false;
+            }
+        }
+
+        // ฟังก์ชันตรวจสอบว่า URL เป็นรูปภาพที่ใช้งานได้
+        function checkImage(url) {
+            return new Promise((resolve, reject) => {
+                const img = new Image();
+                img.onload = () => resolve();
+                img.onerror = () => reject();
+                img.src = url;
+            });
+        }
+
+        // ใช้ลิงค์รูปโปรไฟล์
+        applyAvatarUrlBtn.addEventListener("click", function () {
+            const url = avatarUrlInput.value.trim();
+            if (!url) {
+                showNotification("error", "กรุณากรอก URL รูปภาพ");
+                return;
+            }
+
+            if (!isValidUrl(url)) {
+                showNotification("error", "URL รูปภาพไม่ถูกต้อง");
+                return;
+            }
+
+            // ตรวจสอบว่าเป็น GIF หรือไม่
+            const isGif = url.toLowerCase().endsWith('.gif') ||
+                url.toLowerCase().includes('giphy.com');
+
+            // ถ้าเป็น GIF และไม่ใช่ Premium
+            if (isGif && !isPremium) {
+                showNotification("error", "เฉพาะสมาชิก Premium เท่านั้นที่สามารถใช้รูปโปรไฟล์เคลื่อนไหวได้");
+                return;
+            }
+
+            checkImage(url)
+                .then(() => {
+                    avatarPreviewImage.src = url;
+                    showNotification("success", "ตั้งค่ารูปโปรไฟล์จากลิงค์สำเร็จ");
+                })
+                .catch(() => {
+                    showNotification("error", "ไม่พบรูปภาพที่ URL นี้");
+                });
+        });
+
+        // ใช้ลิงค์รูปพื้นหลัง
+        applyBannerUrlBtn.addEventListener("click", function () {
+            const url = bannerUrlInput.value.trim();
+            if (!url) {
+                showNotification("error", "กรุณากรอก URL รูปภาพ");
+                return;
+            }
+
+            if (!isValidUrl(url)) {
+                showNotification("error", "URL รูปภาพไม่ถูกต้อง");
+                return;
+            }
+
+            // ตรวจสอบว่าเป็น GIF หรือวิดีโอ
+            const isAnimated = url.toLowerCase().endsWith('.gif') ||
+                url.toLowerCase().includes('giphy.com') ||
+                isVideoUrl(url);
+
+            // ถ้าเป็นภาพเคลื่อนไหวและไม่ใช่ Premium
+            if (isAnimated && !isPremium) {
+                showNotification("error", "เฉพาะสมาชิก Premium เท่านั้นที่สามารถใช้พื้นหลังเคลื่อนไหวได้");
+                return;
+            }
+
+            checkImage(url)
+                .then(() => {
+                    bannerPreviewImage.src = url;
+                    showNotification("success", "ตั้งค่ารูปพื้นหลังจากลิงค์สำเร็จ");
+                })
+                .catch(() => {
+                    showNotification("error", "ไม่พบรูปภาพที่ URL นี้");
+                });
+        });
+
+        // รีเซ็ตรูปโปรไฟล์เป็นค่าเริ่มต้น
+        resetAvatarBtn.addEventListener("click", function () {
+            avatarPreviewImage.src = DEFAULT_AVATAR_URL;
+            avatarUrlInput.value = "";
+            showNotification("success", "รีเซ็ตรูปโปรไฟล์เป็นค่าเริ่มต้นแล้ว");
+        });
+
+        // รีเซ็ตรูปพื้นหลังเป็นค่าเริ่มต้น
+        resetBannerBtn.addEventListener("click", function () {
+            bannerPreviewImage.src = DEFAULT_BANNER_URL;
+            bannerUrlInput.value = "";
+            showNotification("success", "รีเซ็ตรูปพื้นหลังเป็นค่าเริ่มต้นแล้ว");
+        });
+
+        // บันทึกการเปลี่ยนแปลงโปรไฟล์
+        profileForm.addEventListener("submit", async function (e) {
+            e.preventDefault();
+
+            if (!isLoggedIn || !currentUser) return;
+
+            const displayName = editDisplayName.value.trim();
+            const bio = editBio.value.trim();
+
+            // ตรวจสอบรูปโปรไฟล์
+            let newAvatarUrl = currentUser.avatarUrl;
+            if (avatarUrlInput.value.trim() &&
+                avatarPreviewImage.src !== currentUser.avatarUrl) {
+                const newAvatar = avatarUrlInput.value.trim();
+
+                // ตรวจสอบว่าเป็น GIF หรือไม่
+                const isGif = newAvatar.toLowerCase().endsWith('.gif') ||
+                    newAvatar.toLowerCase().includes('giphy.com');
+
+                // ถ้าเป็น GIF และไม่ใช่ Premium
+                if (isGif && !isPremium) {
+                    showNotification("error", "เฉพาะสมาชิก Premium เท่านั้นที่สามารถใช้รูปโปรไฟล์เคลื่อนไหวได้");
+                    return;
+                }
+
+                newAvatarUrl = newAvatar;
+            } else if (avatarPreviewImage.src === DEFAULT_AVATAR_URL &&
+                currentUser.avatarUrl !== DEFAULT_AVATAR_URL) {
+                newAvatarUrl = DEFAULT_AVATAR_URL;
+            }
+
+            // ตรวจสอบรูปพื้นหลัง (ส่วนนี้คงเดิม)
+            let newBannerUrl = currentUser.bannerUrl;
+            if (bannerUrlInput.value.trim() &&
+                bannerPreviewImage.src !== currentUser.bannerUrl) {
+                newBannerUrl = bannerUrlInput.value.trim();
+            } else if (bannerPreviewImage.src === DEFAULT_BANNER_URL &&
+                currentUser.bannerUrl !== DEFAULT_BANNER_URL) {
+                newBannerUrl = DEFAULT_BANNER_URL;
+            }
+
+            // อัปเดตข้อมูลผู้ใช้
+            try {
+                const users = await loadUsers();
+                const userIndex = users.findIndex(u => u.id === currentUser.id);
+
+                if (userIndex !== -1) {
+                    users[userIndex].displayName = displayName || users[userIndex].name;
+                    users[userIndex].bio = bio;
+                    users[userIndex].avatarUrl = newAvatarUrl || DEFAULT_AVATAR_URL;
+                    users[userIndex].bannerUrl = newBannerUrl || DEFAULT_BANNER_URL;
+
+                    const saveResult = await saveUsers(users);
+
+                    if (saveResult) {
+                        // อัปเดต currentUser
+                        currentUser.displayName = displayName || currentUser.name;
+                        currentUser.bio = bio;
+                        currentUser.avatarUrl = newAvatarUrl || DEFAULT_AVATAR_URL;
+                        currentUser.bannerUrl = newBannerUrl || DEFAULT_BANNER_URL;
+
+                        // บันทึกสถานะ
+                        saveAppState();
+
+                        // อัปเดต UI
+                        updateProfileInfo();
+                        updateProfileModal();
+
+                        showNotification("success", "บันทึกการเปลี่ยนแปลงโปรไฟล์สำเร็จ");
+
+                        // เปลี่ยนไปที่แท็บดูโปรไฟล์
+                        switchTab("view");
+                    } else {
+                        showNotification("error", "ไม่สามารถบันทึกการเปลี่ยนแปลงโปรไฟล์ได้");
+                    }
+                }
+            } catch (error) {
+                console.error("Update profile error:", error);
+                showNotification("error", "เกิดข้อผิดพลาดในการอัปเดตโปรไฟล์");
+            }
+        });
+
+        // โหมดกลางคืน
+        darkModeToggle.addEventListener("change", function () {
+            darkMode = this.checked;
+            document.body.classList.toggle("dark-mode", darkMode);
+
+            // บันทึกทั้งใน appState และ localStorage เพื่อความเข้ากันได้
+            const appState = JSON.parse(localStorage.getItem("appState")) || {};
+            appState.darkMode = darkMode;
+            localStorage.setItem("appState", JSON.stringify(appState));
+            localStorage.setItem("darkMode", darkMode);
+        });
+
+        // ไปที่หน้าล็อกอินจากโมดัล
+        goToLoginBtn.addEventListener("click", function () {
+            loginRequiredModal.classList.remove("active");
+            overlay.classList.remove("active");
+            authContainer.style.display = "flex";
+            mainHeader.style.display = "none";
+            mainContent.classList.remove("active");
+            loginForm.style.display = "block";
+            registerForm.style.display = "none";
+        });
+
+        // ไปที่หน้าสมัครสมาชิกจากโมดัล
+        goToRegisterBtn.addEventListener("click", function () {
+            loginRequiredModal.classList.remove("active");
+            overlay.classList.remove("active");
+            authContainer.style.display = "flex";
+            mainHeader.style.display = "none";
+            mainContent.classList.remove("active");
+            loginForm.style.display = "none";
+            registerForm.style.display = "block";
+        });
+
+        // ปิดโมดัลต้องเข้าสู่ระบบ
+        closeLoginRequiredModal.addEventListener("click", function () {
+            loginRequiredModal.classList.remove("active");
+            overlay.classList.remove("active");
+        });
+
+        // ปิดเมนูเมื่อคลิกที่อื่น
+        window.addEventListener("click", function (event) {
+            if (
+                !event.target.closest(".profile-btn") &&
+                !event.target.closest(".profile-menu")
+            ) {
+                profileMenu.classList.remove("active");
+            }
+
+            if (
+                !event.target.closest(".menu-btn") &&
+                !event.target.closest(".sidebar")
+            ) {
+                sidebar.classList.remove("active");
+                overlay.classList.remove("active");
+            }
+        });
+
+        // ปิดโมดัลเมื่อคลิก overlay
+        overlay.addEventListener("click", function () {
+            premiumModal.classList.remove("active");
+            settingsModal.classList.remove("active");
+            profileModal.classList.remove("active");
+            loginRequiredModal.classList.remove("active");
+            overlay.classList.remove("active");
+        });
+
+        // กลับไปหน้าแรกเมื่อคลิกโลโก้
+        homeBtn.addEventListener("click", function () {
+            currentCategory = "all";
+            loadMods(currentCategory);
+        });
+
+        // ฟังก์ชันบันทึกสถานะแอปพลิเคชัน
+        function saveAppState() {
+            const appState = {
+                isLoggedIn: isLoggedIn,
+                currentUser: currentUser,
+                currentCategory: currentCategory,
+                darkMode: darkMode,
+            };
+            localStorage.setItem("appState", JSON.stringify(appState));
+        }
+
+        // ฟังก์ชันโหลดสถานะแอปพลิเคชัน
+        // แก้ไขฟังก์ชัน loadAppState
+        async function loadAppState() {
+            // โหลดสถานะจาก localStorage
+            const savedState = localStorage.getItem("appState");
+            const savedDarkMode = localStorage.getItem("darkMode");
+
+            if (savedState) {
+                try {
+                    const appState = JSON.parse(savedState);
+
+                    // ตรวจสอบข้อมูลพื้นฐานที่จำเป็น
+                    if (appState.isLoggedIn && appState.currentUser &&
+                        appState.currentUser.id && appState.currentUser.name &&
+                        appState.currentUser.email) {
+
+                        try {
+                            // โหลดข้อมูลผู้ใช้จากเซิร์ฟเวอร์เพื่อตรวจสอบสถานะล่าสุด
+                            const users = await loadUsers();
+                            const serverUser = users.find(u => u.id === appState.currentUser.id);
+
+                            if (serverUser) {
+                                // อัปเดตข้อมูลจากเซิร์ฟเวอร์
+                                currentUser = {
+                                    ...appState.currentUser, // เก็บข้อมูลเดิมที่อาจไม่มีในเซิร์ฟเวอร์
+                                    balance: serverUser.balance || 0, // ใช้ยอดเงินจากเซิร์ฟเวอร์
+                                    plan: serverUser.plan || "free", // ใช้สถานะสมาชิกจากเซิร์ฟเวอร์
+                                    downloadCount: serverUser.downloadCount || 0,
+                                    avatarUrl: serverUser.avatarUrl || DEFAULT_AVATAR_URL,
+                                    bannerUrl: serverUser.bannerUrl || DEFAULT_BANNER_URL,
+                                    displayName: serverUser.displayName || serverUser.name,
+                                    bio: serverUser.bio || ""
+                                };
+
+                                isLoggedIn = true;
+                                isPremium = currentUser.plan === "premium";
+
+                                // ตรวจสอบการเติมเงิน (ถ้ามี)
+                                await checkTopupStatus();
+                            } else {
+                                // ไม่พบผู้ใช้ในเซิร์ฟเวอร์ - ล็อกเอ้าท์อัตโนมัติ
+                                console.log("User not found on server, logging out...");
+                                localStorage.removeItem("appState");
+                                isLoggedIn = false;
+                                currentUser = null;
+                                isPremium = false;
+                            }
+                        } catch (error) {
+                            console.error("Error loading user data from server:", error);
+                            // หากเกิดข้อผิดพลาด ให้ใช้ข้อมูลที่บันทึกไว้
+                            isLoggedIn = appState.isLoggedIn;
+                            currentUser = appState.currentUser;
+                            isPremium = currentUser?.plan === "premium";
+                        }
+                    } else {
+                        // ข้อมูลไม่ครบถ้วน - ล็อกเอ้าท์อัตโนมัติ
+                        console.log("Invalid user data in appState, logging out...");
+                        localStorage.removeItem("appState");
+                        isLoggedIn = false;
+                        currentUser = null;
+                        isPremium = false;
+                    }
+
+                    // โหลดหมวดหมู่ปัจจุบัน
+                    if (appState.currentCategory) {
+                        currentCategory = appState.currentCategory;
+                    }
+
+                    // ตั้งค่าโหมดกลางคืน
+                    if (appState.darkMode !== undefined) {
+                        darkMode = appState.darkMode;
+                    } else if (savedDarkMode === "true") {
+                        darkMode = true;
+                    }
+
+                    // ใช้การตั้งค่าโหมดกลางคืน
+                    document.body.classList.toggle("dark-mode", darkMode);
+                    darkModeToggle.checked = darkMode;
+
+                } catch (e) {
+                    console.error("Error parsing appState:", e);
+                    localStorage.removeItem("appState");
+                    isLoggedIn = false;
+                    currentUser = null;
+                    isPremium = false;
+                }
+            } else {
+                // ถ้าไม่มี appState ใน localStorage
+                isLoggedIn = false;
+                currentUser = null;
+                isPremium = false;
+
+                // ตรวจสอบโหมดกลางคืนจาก localStorage โดยตรง
+                if (savedDarkMode === "true") {
+                    darkMode = true;
+                    document.body.classList.add("dark-mode");
+                    darkModeToggle.checked = true;
+                }
+            }
+
+            // แสดงข้อความเตือนถ้าเคยล็อกอินแต่ข้อมูลไม่ถูกต้อง
+            if (localStorage.getItem("appState") && !isLoggedIn) {
+                showNotification(
+                    "warning",
+                    "เซสชั่นของคุณหมดอายุแล้ว กรุณาล็อกอินอีกครั้ง",
+                    "เซสชั่นหมดอายุ",
+                    5000
+                );
+            }
+        }
+
+        // ปุ่มเข้าสู่ระบบใน header
+        headerLoginBtn.addEventListener("click", function () {
+            authContainer.style.display = "flex";
+            mainHeader.style.display = "none";
+            mainContent.classList.remove("active");
+            loginForm.style.display = "block";
+            registerForm.style.display = "none";
+        });
+
+        // แก้ไขส่วนเริ่มต้นแอปพลิเคชัน
+        window.addEventListener("DOMContentLoaded", async function () {
+            // โหลดการตั้งค่าจาก Netlify Function
+            await loadConfig();
+
+            // โหลดสถานะแอปพลิเคชันที่บันทึกไว้
+            await loadAppState();
+
+            // แสดงข้อความเตือนถ้าเคยล็อกอินแต่ข้อมูลไม่ถูกต้อง
+            if (localStorage.getItem("appState") && !isLoggedIn) {
+                showNotification("warning", "เซสชั่นของคุณหมดอายุแล้ว กรุณาล็อกอินอีกครั้ง", "เซสชั่นหมดอายุ");
+            }
+
+            await loadCategories();
+
+            // ตรวจสอบสถานะการเข้าสู่ระบบและแสดงหน้าแรก
+            if (isLoggedIn) {
+                authContainer.style.display = "none";
+                mainHeader.style.display = "flex";
+                mainContent.classList.add("active");
+                updateUIAfterLogin();
+                updateProfileInfo();
+            } else {
+                authContainer.style.display = "flex";
+                mainHeader.style.display = "none";
+                mainContent.classList.remove("active");
+            }
+
+            // โหลด MOD ตามหมวดหมู่ที่บันทึกไว้
+            loadMods(currentCategory);
+        });
+
+        // เพิ่ม Event Listener สำหรับปุ่มเปลี่ยนระหว่างหน้าล็อกอินและสมัครสมาชิก
+        document.getElementById("showRegister").addEventListener("click", function (e) {
+            e.preventDefault();
+            document.getElementById("loginForm").style.display = "none";
+            document.getElementById("registerForm").style.display = "block";
+        });
+
+        document.getElementById("showLogin").addEventListener("click", function (e) {
+            e.preventDefault();
+            document.getElementById("loginForm").style.display = "block";
+            document.getElementById("registerForm").style.display = "none";
+        });
+
+        // เพิ่มฟังก์ชันตรวจสอบสถานะสมาชิกจากเซิร์ฟเวอร์
+        async function checkMembershipStatus() {
+            if (!isLoggedIn || !currentUser) return false;
+
+            try {
+                const users = await loadUsers();
+                const serverUser = users.find(u => u.id === currentUser.id);
+
+                if (serverUser) {
+                    // ตรวจสอบว่าสถานะสมาชิกเปลี่ยนไปหรือไม่
+                    if (serverUser.plan !== currentUser.plan) {
+                        currentUser.plan = serverUser.plan;
+                        isPremium = currentUser.plan === "premium";
+
+                        // บันทึกสถานะใหม่
+                        saveAppState();
+
+                        // อัปเดต UI
+                        updateProfileInfo();
+                        updatePremiumModalButtons();
+                        updatePremiumStatus();
+
+                        return true;
+                    }
+                } else {
+                    // ไม่พบผู้ใช้ในเซิร์ฟเวอร์ ให้ล็อกเอ้าท์
+                    showNotification("error", "ไม่พบบัญชีของคุณในระบบ กรุณาล็อกอินอีกครั้ง");
+                    logoutBtn.click();
+                }
+            } catch (error) {
+                console.error("Check membership error:", error);
+            }
+
+            return false;
+        }
+
+
+        // เพิ่ม Event Listeners สำหรับปุ่มเปิดโมดัล
+        feedbackBtn.addEventListener("click", openFeedbackModal);
+        reportBtn.addEventListener("click", openReportModal);
+
+        function openFeedbackModal() {
+            const feedbackModal = document.getElementById("feedbackModal");
+            feedbackModal.classList.add("active");
+            overlay.classList.add("active");
+            profileMenu.classList.remove("active");
+            feedbackAttachments = [];
+            updateFeedbackAttachments();
+        }
+
+        // ฟังก์ชันเปิดโมดัลแจ้งปัญหา
+        function openReportModal() {
+            reportModal.classList.add("active");
+            overlay.classList.add("active");
+            profileMenu.classList.remove("active");
+            reportAttachments = [];
+            updateReportAttachments();
+        }
+
+        // ปิดโมดัลความคิดเห็น
+        document
+            .getElementById("closeFeedbackModal")
+            .addEventListener("click", function () {
+                feedbackModal.classList.remove("active");
+                overlay.classList.remove("active");
+            });
+
+        // ปิดโมดัลแจ้งปัญหา
+        document
+            .getElementById("closeReportModal")
+            .addEventListener("click", function () {
+                reportModal.classList.remove("active");
+                overlay.classList.remove("active");
+            });
+
+        // เพิ่มไฟล์แนบสำหรับความคิดเห็น
+        document
+            .getElementById("addFeedbackAttachment")
+            .addEventListener("click", function () {
+                const fileUrl = document
+                    .getElementById("feedbackFileUrl")
+                    .value.trim();
+                if (!fileUrl) {
+                    showNotification("error", "กรุณากรอก URL ไฟล์");
+                    return;
+                }
+
+                if (!isValidUrl(fileUrl)) {
+                    showNotification("error", "URL ไม่ถูกต้อง");
+                    return;
+                }
+
+                // ตรวจสอบประเภทไฟล์
+                if (isImageUrl(fileUrl)) {
+                    checkImage(fileUrl)
+                        .then(() => {
+                            feedbackAttachments.push({
+                                type: "image",
+                                url: fileUrl,
+                            });
+                            document.getElementById("feedbackFileUrl").value = "";
+                            updateFeedbackAttachments();
+                            showNotification("success", "เพิ่มรูปภาพเรียบร้อย");
+                        })
+                        .catch(() => {
+                            showNotification("error", "ไม่พบรูปภาพที่ URL นี้");
+                        });
+                } else if (isVideoUrl(fileUrl)) {
+                    feedbackAttachments.push({
+                        type: "video",
+                        url: fileUrl,
+                    });
+                    document.getElementById("feedbackFileUrl").value = "";
+                    updateFeedbackAttachments();
+                    showNotification("success", "เพิ่มวิดีโอเรียบร้อย");
+                } else {
+                    showNotification(
+                        "error",
+                        "URL ต้องเป็นรูปภาพ (JPG, PNG) หรือวิดีโอ (YouTube, Vimeo)"
+                    );
+                }
+            });
+
+        // เพิ่มไฟล์แนบสำหรับรายงานปัญหา
+        document
+            .getElementById("addReportAttachment")
+            .addEventListener("click", function () {
+                const fileUrl = document.getElementById("reportFileUrl").value.trim();
+                if (!fileUrl) {
+                    showNotification("error", "กรุณากรอก URL ไฟล์");
+                    return;
+                }
+
+                if (!isValidUrl(fileUrl)) {
+                    showNotification("error", "URL ไม่ถูกต้อง");
+                    return;
+                }
+
+                // ตรวจสอบประเภทไฟล์
+                if (isImageUrl(fileUrl)) {
+                    checkImage(fileUrl)
+                        .then(() => {
+                            reportAttachments.push({
+                                type: "image",
+                                url: fileUrl,
+                            });
+                            document.getElementById("reportFileUrl").value = "";
+                            updateReportAttachments();
+                            showNotification("success", "เพิ่มรูปภาพเรียบร้อย");
+                        })
+                        .catch(() => {
+                            showNotification("error", "ไม่พบรูปภาพที่ URL นี้");
+                        });
+                } else if (isVideoUrl(fileUrl)) {
+                    reportAttachments.push({
+                        type: "video",
+                        url: fileUrl,
+                    });
+                    document.getElementById("reportFileUrl").value = "";
+                    updateReportAttachments();
+                    showNotification("success", "เพิ่มวิดีโอเรียบร้อย");
+                } else {
+                    showNotification(
+                        "error",
+                        "URL ต้องเป็นรูปภาพ (JPG, PNG) หรือวิดีโอ (YouTube, Vimeo)"
+                    );
+                }
+            });
+
+        // อัปเดตแสดงไฟล์แนบความคิดเห็น
+        function updateFeedbackAttachments() {
+            const container = document.getElementById("feedbackAttachments");
+            container.innerHTML = "";
+
+            feedbackAttachments.forEach((attachment, index) => {
+                const attachmentItem = document.createElement("div");
+                attachmentItem.className = "attachment-item";
+
+                if (attachment.type === "image") {
+                    attachmentItem.innerHTML = `
+                <img src="${attachment.url}" alt="Attachment">
+                <button class="remove-attachment" data-index="${index}">&times;</button>
+            `;
+                } else if (attachment.type === "video") {
+                    attachmentItem.innerHTML = `
+                <video controls>
+                    <source src="${attachment.url}" type="video/mp4">
+                </video>
+                <button class="remove-attachment" data-index="${index}">&times;</button>
+            `;
+                }
+
+                container.appendChild(attachmentItem);
+            });
+
+            // เพิ่ม Event Listener สำหรับปุ่มลบไฟล์แนบ
+            document
+                .querySelectorAll("#feedbackAttachments .remove-attachment")
+                .forEach((btn) => {
+                    btn.addEventListener("click", function () {
+                        const index = parseInt(this.getAttribute("data-index"));
+                        feedbackAttachments.splice(index, 1);
+                        updateFeedbackAttachments();
+                    });
+                });
+        }
+
+        // อัปเดตแสดงไฟล์แนบรายงานปัญหา
+        function updateReportAttachments() {
+            const container = document.getElementById("reportAttachments");
+            container.innerHTML = "";
+
+            reportAttachments.forEach((attachment, index) => {
+                const attachmentItem = document.createElement("div");
+                attachmentItem.className = "attachment-item";
+
+                if (attachment.type === "image") {
+                    attachmentItem.innerHTML = `
+                <img src="${attachment.url}" alt="Attachment">
+                <button class="remove-attachment" data-index="${index}">&times;</button>
+            `;
+                } else if (attachment.type === "video") {
+                    attachmentItem.innerHTML = `
+                <video controls>
+                    <source src="${attachment.url}" type="video/mp4">
+                </video>
+                <button class="remove-attachment" data-index="${index}">&times;</button>
+            `;
+                }
+
+                container.appendChild(attachmentItem);
+            });
+
+            // เพิ่ม Event Listener สำหรับปุ่มลบไฟล์แนบ
+            document
+                .querySelectorAll("#reportAttachments .remove-attachment")
+                .forEach((btn) => {
+                    btn.addEventListener("click", function () {
+                        const index = parseInt(this.getAttribute("data-index"));
+                        reportAttachments.splice(index, 1);
+                        updateReportAttachments();
+                    });
+                });
+        }
+
+        // ตรวจสอบว่า URL เป็นรูปภาพหรือไม่
+        function isImageUrl(url) {
+            return (
+                /\.(jpeg|jpg|gif|png)$/.test(url) ||
+                /\.(jpeg|jpg|gif|png)\?/.test(url) ||
+                /(imgur\.com|i\.imgur\.com|giphy\.com)/.test(url)
+            );
+        }
+
+        // ตรวจสอบว่า URL เป็นวิดีโอหรือไม่
+        function isVideoUrl(url) {
+            return (
+                /\.(mp4|webm|ogg|gif)$/.test(url) ||
+                /\.(mp4|webm|ogg|gif)\?/.test(url) ||
+                /(youtube\.com|youtu\.be|vimeo\.com|giphy\.com)/.test(url)
+            );
+        }
+
+        // ส่งความคิดเห็น
+        document
+            .getElementById("feedbackForm")
+            .addEventListener("submit", async function (e) {
+                e.preventDefault();
+
+                if (!isLoggedIn) {
+                    showNotification("error", "กรุณาเข้าสู่ระบบก่อนส่งความคิดเห็น");
+                    return;
+                }
+
+                const type = document.getElementById("feedbackType").value;
+                const title = document.getElementById("feedbackTitle").value.trim();
+                const content = document
+                    .getElementById("feedbackContent")
+                    .value.trim();
+
+                if (!title || !content) {
+                    showNotification("error", "กรุณากรอกหัวข้อและรายละเอียด");
+                    return;
+                }
+
+                showLoading(true);
+
+                try {
+                    // โหลดไฟล์ feedback.json ที่มีอยู่
+                    let feedbacks = (await loadJsonFile("feedback.json")) || [];
+
+                    // สร้างข้อมูลความคิดเห็นใหม่
+                    const newFeedback = {
+                        id: Date.now().toString(),
+                        userId: currentUser.id,
+                        userName: currentUser.name,
+                        userEmail: currentUser.email,
+                        type: type,
+                        title: title,
+                        content: content,
+                        attachments: feedbackAttachments,
+                        createdAt: new Date().toISOString(),
+                        status: "pending",
+                        reply: "",
+                        replyDate: ""
+                    };
+
+                    // เพิ่มความคิดเห็นใหม่
+                    feedbacks.push(newFeedback);
+
+                    // บันทึกไฟล์ feedback.json
+                    const saveResult = await saveJsonFile("feedback.json", feedbacks);
+
+                    if (saveResult) {
+                        showNotification(
+                            "success",
+                            "ส่งความคิดเห็นสำเร็จ! ขอบคุณสำหรับความคิดเห็นของคุณ"
+                        );
+                        feedbackModal.classList.remove("active");
+                        overlay.classList.remove("active");
+                        this.reset();
+                        feedbackAttachments = [];
+                        updateFeedbackAttachments();
+                    } else {
+                        showNotification("error", "ไม่สามารถส่งความคิดเห็นได้");
+                    }
+                } catch (error) {
+                    console.error("Submit feedback error:", error);
+                    showNotification("error", "เกิดข้อผิดพลาดในการส่งความคิดเห็น");
+                } finally {
+                    showLoading(false);
+                }
+            });
+
+        // ส่งรายงานปัญหา
+        document
+            .getElementById("reportForm")
+            .addEventListener("submit", async function (e) {
+                e.preventDefault();
+
+                if (!isLoggedIn) {
+                    showNotification("error", "กรุณาเข้าสู่ระบบก่อนส่งรายงานปัญหา");
+                    return;
+                }
+
+                const type = document.getElementById("reportType").value;
+                const title = document.getElementById("reportTitle").value.trim();
+                const content = document.getElementById("reportContent").value.trim();
+
+                if (!title || !content) {
+                    showNotification("error", "กรุณากรอกหัวข้อและรายละเอียด");
+                    return;
+                }
+
+                showLoading(true);
+
+                try {
+                    // โหลดไฟล์ reports.json ที่มีอยู่
+                    let reports = (await loadJsonFile("reports.json")) || [];
+
+                    // สร้างข้อมูลรายงานปัญหาใหม่
+                    const newReport = {
+                        id: Date.now().toString(),
+                        userId: currentUser.id,
+                        userName: currentUser.name,
+                        userEmail: currentUser.email,
+                        type: type,
+                        title: title,
+                        content: content,
+                        attachments: reportAttachments,
+                        createdAt: new Date().toISOString(),
+                        status: "pending",
+                        reply: "",
+                        replyDate: ""
+                    };
+
+                    // เพิ่มรายงานปัญหาใหม่
+                    reports.push(newReport);
+
+                    // บันทึกไฟล์ reports.json
+                    const saveResult = await saveJsonFile("reports.json", reports);
+
+                    if (saveResult) {
+                        showNotification(
+                            "success",
+                            "ส่งรายงานปัญหาสำเร็จ! เราจะตรวจสอบและติดต่อกลับไป"
+                        );
+                        reportModal.classList.remove("active");
+                        overlay.classList.remove("active");
+                        this.reset();
+                        reportAttachments = [];
+                        updateReportAttachments();
+                    } else {
+                        showNotification("error", "ไม่สามารถส่งรายงานปัญหาได้");
+                    }
+                } catch (error) {
+                    console.error("Submit report error:", error);
+                    showNotification("error", "เกิดข้อผิดพลาดในการส่งรายงานปัญหา");
+                } finally {
+                    showLoading(false);
+                }
+            });
+
+        // ฟังก์ชันโหลดไฟล์ JSON
+        async function loadJsonFile(filename) {
+            if (
+                !githubConfig.username ||
+                !githubConfig.repo ||
+                !githubConfig.token
+            ) {
+                console.log("GitHub settings incomplete, skipping load");
+                return null;
+            }
+
+            try {
+                const response = await fetch(
+                    `https://api.github.com/repos/${githubConfig.username}/${githubConfig.repo}/contents/${filename}`,
+                    {
+                        headers: {
+                            Authorization: `token ${githubConfig.token}`,
+                            Accept: "application/vnd.github.v3+json",
+                        },
+                    }
+                );
+
+                if (response.status === 404) {
+                    return [];
+                }
+
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.message || `Failed to load ${filename}`);
+                }
+
+                const data = await response.json();
+                const decodedContent = decodeURIComponent(escape(atob(data.content)));
+                return JSON.parse(decodedContent) || [];
+            } catch (error) {
+                console.error(`Load ${filename} error:`, error);
+                // ถ้าไฟล์ไม่มีอยู่ สร้างไฟล์ใหม่
+                if (error.message.includes("404")) {
+                    return [];
+                }
+                showNotification(
+                    "error",
+                    `โหลดไฟล์ ${filename} ไม่สำเร็จ: ${error.message || "Unknown error"
+                    }`
+                );
+                return null;
+            }
+        }
+
+        // ฟังก์ชันบันทึกไฟล์ JSON
+        async function saveJsonFile(filename, data) {
+            if (
+                !githubConfig.username ||
+                !githubConfig.repo ||
+                !githubConfig.token
+            ) {
+                console.log("GitHub settings incomplete, skipping save");
+                return false;
+            }
+
+            try {
+                let sha = null;
+                try {
+                    const checkResponse = await fetch(
+                        `https://api.github.com/repos/${githubConfig.username}/${githubConfig.repo}/contents/${filename}`,
+                        {
+                            headers: {
+                                Authorization: `token ${githubConfig.token}`,
+                                Accept: "application/vnd.github.v3+json",
+                            },
+                        }
+                    );
+
+                    if (checkResponse.ok) {
+                        const checkData = await checkResponse.json();
+                        sha = checkData.sha;
+                    }
+                } catch (e) {
+                    console.log("File not found, will create new one");
+                }
+
+                const content = JSON.stringify(data, null, 2);
+                const encodedContent = btoa(unescape(encodeURIComponent(content)));
+
+                const response = await fetch(
+                    `https://api.github.com/repos/${githubConfig.username}/${githubConfig.repo}/contents/${filename}`,
+                    {
+                        method: "PUT",
+                        headers: {
+                            Authorization: `token ${githubConfig.token}`,
+                            Accept: "application/vnd.github.v3+json",
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({
+                            message: `Update ${filename}`,
+                            content: encodedContent,
+                            sha: sha,
+                        }),
+                    }
+                );
+
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.message || `Failed to save ${filename}`);
+                }
+
+                return true;
+            } catch (error) {
+                console.error(`Save ${filename} error:`, error);
+                showNotification(
+                    "error",
+                    `บันทึกไฟล์ ${filename} ไม่สำเร็จ: ${error.message || "Unknown error"
+                    }`
+                );
+                return false;
+            }
+        }
+    </script>
+</body>
+
+</html>
